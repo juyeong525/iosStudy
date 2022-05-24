@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         }
         switch(sender.tag){
         case 18:
-            textLabal.text = ""
+            textLabal.text = "0"
         case 12,13,14,15:
             previousNumber = currentNumber
             checkingLabel = false
