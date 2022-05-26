@@ -120,6 +120,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7Lc-5m-jmB">
+                        <barButtonItem key="leftBarButtonItem" title="edit" id="IJC-qd-6Ei">
+                            <connections>
+                                <action selector="editButton:" destination="c0p-7m-eSR" id="pDX-fE-RYW"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="4rS-8s-Wif">
                             <connections>
                                 <segue destination="BYZ-38-t0r" kind="show" id="igi-HP-4Zz"/>
@@ -127,12 +132,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="TableView" destination="u3Q-3L-FY4" id="u7g-hL-Tv8"/>
+                        <outlet property="tableView" destination="u3Q-3L-FY4" id="Euo-Lc-Gf8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k4L-LX-Gjm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-252" y="-575"/>
+            <point key="canvasLocation" x="-300" y="-575"/>
         </scene>
     </scenes>
     <resources>

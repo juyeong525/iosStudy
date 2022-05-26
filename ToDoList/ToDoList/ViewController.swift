@@ -11,11 +11,11 @@ var todolist = [ToDoList]()
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var TableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        TableView.delegate = self
-        TableView.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
         // Do any additional setup after loading the view.
     }
 
@@ -30,19 +30,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            
+            todolist.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    @IBAction func editButton(_ sender: UIBarButtonItem) {
+        if tableView.isEditing {
+            sender.title = ""
+            tableView.setEditing(false, animated: true)
+        } else {
+            sender.title = "Done"
+            tableView.setEditing(true, animated: true)
+        }
+    }
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
            
-           if editingStyle == .delete {
-               
-               todolist.remove(at: indexPath.row)
-               tableView.deleteRows(at: [indexPath], with: .fade)
-               
-           } else if editingStyle == .insert {
-               
-           }
+           let moved = todolist[sourceIndexPath.row]
+           todolist.remove(at: sourceIndexPath.row)
+           todolist.insert(moved, at: destinationIndexPath.row)
        }
-    
     override func viewWillAppear(_ animated: Bool) {
-        TableView.reloadData()
+        tableView.reloadData()
     }
 }
 
