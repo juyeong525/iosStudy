@@ -16,7 +16,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        // Do any additional setup after loading the view.
+        loadData()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        setData()
+    }
+
+    private func setData() {
+        let data = todolist.map {
+            [
+                "title": $0.todoTitle,
+                "content": $0.todoText
+            ]
+        }
+        UserDefaults.standard.set(data, forKey: "item")
+        UserDefaults.standard.synchronize()
+    }
+    func loadData() {
+        guard let data = UserDefaults.standard.object(forKey: "item") as? [[String: AnyObject]] else {
+            return
+        }
+        todolist = data.map {
+            let title = $0["title"] as? String
+            let content = $0["content"] as? String
+
+            return ToDoList(todoTitle: title!, todoText: content!)
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,8 +80,5 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
            todolist.remove(at: sourceIndexPath.row)
            todolist.insert(moved, at: destinationIndexPath.row)
        }
-    override func viewWillAppear(_ animated: Bool) {
-        tableView.reloadData()
-    }
 }
 
