@@ -35,17 +35,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         UserDefaults.standard.set(data, forKey: "item")
         UserDefaults.standard.synchronize()
     }
-    func loadData() {
-        guard let data = UserDefaults.standard.object(forKey: "item") as? [[String: AnyObject]] else {
-            return
-        }
-        todolist = data.map {
-            let title = $0["title"] as? String
-            let content = $0["content"] as? String
+        func loadData() {
+            guard let data = UserDefaults.standard.object(forKey: "item") as? [[String: AnyObject]] else {
+                return
+            }
+            todolist = data.map {
+                let title = $0["title"] as? String
+                let content = $0["content"] as? String
 
-            return ToDoList(todoTitle: title!, todoText: content!)
+                return ToDoList(todoTitle: title!, todoText: content!)
+            }
         }
-    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todolist.count
@@ -75,7 +75,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-           
+           aSㅊㅇ
            let moved = todolist[sourceIndexPath.row]
            todolist.remove(at: sourceIndexPath.row)
            todolist.insert(moved, at: destinationIndexPath.row)
