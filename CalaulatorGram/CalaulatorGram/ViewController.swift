@@ -8,7 +8,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet weak var numberButtons: UIButton!
     @IBOutlet weak var textLabal: UILabel!
     var checkingLabel = false
     var previousNumber = 0.0

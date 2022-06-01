@@ -276,7 +276,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
-                        <outlet property="numberButtons" destination="EZc-Au-Dc2" id="nTo-5X-dcz"/>
                         <outlet property="textLabal" destination="c4B-HS-tb7" id="xGl-zH-Bqe"/>
                     </connections>
                 </viewController>
