@@ -67,7 +67,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     @IBAction func editButton(_ sender: UIBarButtonItem) {
         if tableView.isEditing {
-            sender.title = ""
+            sender.title = "Edit"
             tableView.setEditing(false, animated: true)
         } else {
             sender.title = "Done"
@@ -75,7 +75,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-           aSㅊㅇ
            let moved = todolist[sourceIndexPath.row]
            todolist.remove(at: sourceIndexPath.row)
            todolist.insert(moved, at: destinationIndexPath.row)

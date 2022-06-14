@@ -35,7 +35,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="bbB-t8-c2p">
-                        <barButtonItem key="leftBarButtonItem" title="cancel" id="8PT-4T-VXN">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="8PT-4T-VXN">
                             <connections>
                                 <action selector="cancelButton:" destination="BYZ-38-t0r" id="mnB-58-go5"/>
                             </connections>
@@ -120,7 +120,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7Lc-5m-jmB">
-                        <barButtonItem key="leftBarButtonItem" title="edit" id="IJC-qd-6Ei">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="IJC-qd-6Ei">
                             <connections>
                                 <action selector="editButton:" destination="c0p-7m-eSR" id="pDX-fE-RYW"/>
                             </connections>
