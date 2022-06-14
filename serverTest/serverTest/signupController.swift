@@ -13,7 +13,7 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var nickNameTextField: UITextField!
 
-    let httpClient = HTTPClient()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
