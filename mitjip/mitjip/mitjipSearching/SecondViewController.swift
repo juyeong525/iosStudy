@@ -68,6 +68,7 @@ extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
                     return
         }
         vc.data = indexPath.row
+        vc.searchList = searchList
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

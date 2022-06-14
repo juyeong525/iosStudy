@@ -9,27 +9,33 @@ import UIKit
 import Kingfisher
 class ThirdViewController : UIViewController {
     @IBOutlet var foodImageView : UIImageView!
-    @IBOutlet var foodtitle : UILabel!
-    @IBOutlet var foodcategory : UILabel!
-    @IBOutlet var address : UILabel!
-    @IBOutlet var roadAddress : UILabel!
-    @IBOutlet var homePageLink : UILabel!
+    @IBOutlet var foodTitle : UILabel!
+    @IBOutlet var foodCategory : UILabel!
+    @IBOutlet var foodAddress : UILabel!
+    @IBOutlet var foodRoadAddress : UILabel!
+    @IBOutlet var foodHomePageLink : UITextView!
     var data : Int = 0
     var searchList = SearchCommunityListModel()
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        print(data)
         details()
+        
     }
     func details(){
-        let url = URL(string: searchList.searchResult[data].imageLink)
+        foodRoadAddress.numberOfLines = 2
+        foodAddress.numberOfLines = 2
+        let url = URL(string:searchList.searchResult[data].imageLink)
         foodImageView.kf.setImage(with: url)
-        address.text = searchList.searchResult[data].address
-        foodtitle.text = searchList.searchResult[data].title
-        foodcategory.text = searchList.searchResult[data].category
-        roadAddress.text = searchList.searchResult[data].roadAddress
-        homePageLink.text = searchList.searchResult[data].homePageLink
+        foodTitle.text = searchList.searchResult[data].title
+        foodCategory.text = searchList.searchResult[data].category
+        foodAddress.text = searchList.searchResult[data].address
+        foodRoadAddress.text = searchList.searchResult[data].roadAddress
+        foodHomePageLink.text = searchList.searchResult[data].homePageLink
+        foodHomePageLink.dataDetectorTypes = .link
+        foodHomePageLink.isEditable = false
+        
     }
-
+ 
 }
 
