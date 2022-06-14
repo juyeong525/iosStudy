@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     @IBAction func buttonsTouch(_ sender: UIButton) {
         if sender.tag < 10 {
             if checkingLabel {
-                dotting = false
                 let digit = textLabal.text
                 textLabal.text = digit! + String(sender.tag)
                 currentNumber = Double(textLabal.text!) ?? 0
@@ -78,8 +77,9 @@ class ViewController: UIViewController {
     @IBAction func dot(_ sender: UIButton) {
         if  !dotting{
             textLabal.text = textLabal.text! + "."
-        }else{
             dotting = true
+        }else{
+            return
         }
     }
     
