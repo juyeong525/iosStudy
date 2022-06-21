@@ -8,7 +8,7 @@
 import Foundation
 
 struct SearchModel: Codable {
-    var index: Int? = .init()
+    var index: Int = .init()
     var title: String = .init()
     var category: String = .init()
     var address: String = .init()

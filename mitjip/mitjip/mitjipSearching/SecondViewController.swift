@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Kingfisher
 class SecondViewController: UIViewController {
     @IBOutlet var foodTableView : UITableView!
  
@@ -18,17 +18,20 @@ class SecondViewController: UIViewController {
         registerXib()
         foodTableView.delegate = self
         foodTableView.dataSource = self
-       
+        foodTableView.rowHeight = 150
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
         searchFood()
+        
     }
+    
     func searchFood() {
-        httpClient.get(url:"/api/restaurant/search",
+        httpClient.get(url:"http://10.156.147.167:8080/api/restaurant/search",
                        params: ["matjip" : data],
                        header: Header.isEmpty.header()
-        ).responseJSON { [unowned self] response in
+        ).responseData(completionHandler: { [unowned self] response in
             switch response.response?.statusCode {
             case 200:
                 do {
@@ -40,9 +43,9 @@ class SecondViewController: UIViewController {
                     print(error)
                 }
             default:
-                print(response.response?.statusCode)
+                print(response.response?.statusCode as Any)
             }
-        }
+        })
     }
     
     private func registerXib() {
@@ -51,7 +54,7 @@ class SecondViewController: UIViewController {
     }
 }
 
-extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
+extension SecondViewController: UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchList.searchResult.count
     }
@@ -59,6 +62,8 @@ extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let customCell = foodTableView.dequeueReusableCell(withIdentifier: "FoodTableViewCell", for: indexPath) as! SearchTableViewCell
         customCell.foodTitle.text = searchList.searchResult[indexPath.row].title
+        let url = URL(string:searchList.searchResult[indexPath.row].imageLink)
+        customCell.foodImageView.kf.setImage(with: url)
         return customCell
         
     }

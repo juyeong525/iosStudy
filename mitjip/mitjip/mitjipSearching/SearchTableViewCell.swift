@@ -9,10 +9,12 @@ import UIKit
 
 class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var foodTitle: UILabel!
+    @IBOutlet weak var foodImageView: UIImageView!
+//    @IBOutlet weak var foodImageView : UIImageView!
     
     override func awakeFromNib() {
-        foodTitle.sizeToFit()
-
+        foodImageView.layer.cornerRadius = foodImageView.frame.width/8
+        foodImageView.clipsToBounds = true
         super.awakeFromNib()
         
         // Initialization code
