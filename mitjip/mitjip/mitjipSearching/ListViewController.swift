@@ -95,7 +95,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource, UIColl
                     return
         }
         vc.searchList = searchList
-        
+        vc.data = indexPath.row
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

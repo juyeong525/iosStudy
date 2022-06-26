@@ -17,6 +17,7 @@ class ListDetailViewController: UIViewController {
     let httpClient = HTTPClient()
     var searchList = [SearchModel]()
     var MapList = MapModelList()
+    var data = 0
     
     
     override func viewDidLoad() {
@@ -27,17 +28,17 @@ class ListDetailViewController: UIViewController {
     func details(){
         foodRoadAddress.numberOfLines = 2
         foodAddress.numberOfLines = 2
-        foodTitle.text = searchList[0].title
-        foodCategory.text = searchList[0].category
-        foodAddress.text = "주소 : "+searchList[0].address
-        foodRoadAddress.text = "도로명주소 : "+searchList[0].roadAddress
-        foodHomePageLink.text = searchList[0].homePageLink
+        foodTitle.text = searchList[data].title
+        foodCategory.text = searchList[data].category
+        foodAddress.text = "주소 : "+searchList[data].address
+        foodRoadAddress.text = "도로명주소 : "+searchList[data].roadAddress
+        foodHomePageLink.text = searchList[data].homePageLink
         foodHomePageLink.dataDetectorTypes = .link
         foodHomePageLink.isEditable = false
-        setMapView(coordinate: change(y: MapList.documents[0].y, x: MapList.documents[0].x), addr: searchList[0].title)
+        setMapView(coordinate: change(y: MapList.documents[0].y, x: MapList.documents[0].x), addr: searchList[data].title)
     }
     @IBAction func delteBarButton(_ sender: UIBarButtonItem) {
-        httpClient.delete(url: "http://10.156.147.167:8080/api/restaurant/"+String(searchList[0].index),
+        httpClient.delete(url: "http://10.156.147.167:8080/api/restaurant/"+String(searchList[data].index),
                           params: nil,
                           header: Header.isEmpty.header()
         ).responseData(completionHandler: { res in
@@ -53,7 +54,7 @@ class ListDetailViewController: UIViewController {
     
     private func XY(){
         httpClient.get(url:"https://dapi.kakao.com//v2/local/search/address.json",
-                       params: ["query" : searchList[0].roadAddress],
+                       params: ["query" : searchList[data].roadAddress],
                        header: ["Authorization" : "KakaoAK e9ebe7bb5ea8722457e9bdd946155f6c"]
         ).responseData(completionHandler: { [unowned self] response in
             switch response.response?.statusCode {
