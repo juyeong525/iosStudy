@@ -29,16 +29,22 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qgc-8z-Ka0">
-                                <rect key="frame" x="177" y="618" width="61" height="31"/>
+                                <rect key="frame" x="177" y="618" width="75" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="로그인"/>
+                                <connections>
+                                    <action selector="loginButtonDidTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SyE-f4-jUw"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLE-9x-aa3">
-                                <rect key="frame" x="171" y="700" width="73" height="31"/>
+                                <rect key="frame" x="171" y="700" width="88" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="회원가입"/>
+                                <connections>
+                                    <segue destination="tNl-pU-gDo" kind="push" id="xBQ-al-Om2"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -57,7 +63,7 @@
         <!--Signup View Controller-->
         <scene sceneID="Nea-1R-Krm">
             <objects>
-                <viewController id="tNl-pU-gDo" customClass="SignupViewController" customModule="serverTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignupViewController" id="tNl-pU-gDo" customClass="SignupViewController" customModule="serverTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="j83-RQ-VI8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -85,12 +91,33 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="회원가입"/>
+                                <connections>
+                                    <action selector="signupButtonDidTap:" destination="tNl-pU-gDo" eventType="touchUpInside" id="GKL-iy-nlV"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="이메일 인증번호 4자리" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PIO-Mx-b7X">
+                                <rect key="frame" x="20" y="254" width="282" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhM-gr-xl0">
+                                <rect key="frame" x="310" y="254" width="101" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="인증번호 받기"/>
+                                <connections>
+                                    <action selector="emailCheckCodeButton:" destination="tNl-pU-gDo" eventType="touchUpInside" id="ZgH-jt-pXZ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hX2-wN-RJx"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Rsb-sT-n5B"/>
                     <connections>
+                        <outlet property="emailCheckButtons" destination="HhM-gr-xl0" id="bLi-dw-hkC"/>
+                        <outlet property="emailCheckCodeTextField" destination="PIO-Mx-b7X" id="QK5-Yy-ISB"/>
                         <outlet property="emailTextField" destination="P6h-qZ-LI7" id="IBK-WG-Rc0"/>
                         <outlet property="nickNameTextField" destination="Edy-7Y-QE0" id="n10-lW-anS"/>
                         <outlet property="passwordTextField" destination="6hv-re-aVF" id="IyS-5d-rWi"/>
@@ -98,7 +125,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z9E-tR-B0e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="700" y="98"/>
+            <point key="canvasLocation" x="698.55072463768124" y="97.767857142857139"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YMA-Zc-AbE">

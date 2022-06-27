@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     
     func login(email: String, password: String) {
         httpClient.post(url: AuthAPI.login.path(), params: ["email": email, "password" : password], header: Header.tokenIsEmpty.header()
-        ).responseJSON(completionHandler: { res in
+        ).responseData(completionHandler: { res in
             switch res.response?.statusCode {
             case 200:
                 do {
@@ -39,11 +39,7 @@ class ViewController: UIViewController {
     @IBAction func loginButtonDidTap(_ sender: UIButton) {
         login(email: emailTextField.text ?? "", password: passwordTextField.text ?? "")
     }
-    
-    @IBAction func signupButtonDidTap(_ sender: UIButton) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "signup")
-        self.navigationController?.pushViewController(vc!, animated: true)
-    }
+
 
 }
 
