@@ -36,6 +36,12 @@ class ViewController: UIViewController {
         })
         
     }
+    @IBAction func signupButtonDidTap(_ sender: UIButton) {
+        guard let vc = self.storyboard?.instantiateViewController(identifier: "SignupViewController") as? SignupViewController else {
+                return
+            }
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     @IBAction func loginButtonDidTap(_ sender: UIButton) {
         login(email: emailTextField.text ?? "", password: passwordTextField.text ?? "")
     }
