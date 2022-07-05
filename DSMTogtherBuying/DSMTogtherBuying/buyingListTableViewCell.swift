@@ -28,6 +28,9 @@ class buyingListTableViewCell: UITableViewCell {
     func setUp(){
         self.addSubview(buyingListTitle)
         self.addSubview(buyingImageView)
+        self.layer.cornerRadius = 20
+        self.layer.borderWidth = 2
+        self.layer.borderColor = UIColor.systemMint.cgColor
         buyingImageView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.left.equalToSuperview().inset(50)

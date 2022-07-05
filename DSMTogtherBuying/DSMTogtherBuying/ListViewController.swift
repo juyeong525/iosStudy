@@ -37,7 +37,7 @@ class ListViewController: UIViewController {
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -45,5 +45,9 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.buyingListTitle.text = "1"
         return cell
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       let vc = ListDetailViewController()
+       self.navigationController?.pushViewController(vc, animated: true)
+
+   }
 }
