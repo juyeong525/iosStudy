@@ -29,7 +29,7 @@ class SecondViewController: UIViewController {
     
     func searchFood() {
         httpClient.get(url:"http://10.156.147.167:8080/api/restaurant/search",
-                       params: ["matjip" : data],
+                       params: ["matjip" : data], //
                        header: Header.isEmpty.header()
         ).responseData(completionHandler: { [unowned self] response in
             switch response.response?.statusCode {
