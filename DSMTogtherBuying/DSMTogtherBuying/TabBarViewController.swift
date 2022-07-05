@@ -31,9 +31,9 @@ extension TabBarViewController {
         let firstTabController = ListViewController()
         firstNavigationController.addChild(firstTabController)
         ///기본으로 보여질 이미지
-        firstNavigationController.tabBarItem.image = UIImage(named: "")
+        firstNavigationController.tabBarItem.image = UIImage(systemName: "list.bullet.rectangle.portrait")
         ///선택되었을 때 보여질 이미지
-        firstNavigationController.tabBarItem.selectedImage = UIImage(named: "")
+        firstNavigationController.tabBarItem.selectedImage = UIImage(systemName: "list.bullet.rectangle.portrait.fill")
         ///탭바 아이템 타이틀
         firstNavigationController.tabBarItem.title = "목록"
         
@@ -41,9 +41,11 @@ extension TabBarViewController {
         let secondTabController = AddViewConroller()
         secondNavigationController.addChild(secondTabController)
         ///기본으로 보여질 이미지
-        secondNavigationController.tabBarItem.image = UIImage(named: "")
+        secondNavigationController.tabBarItem.image = UIImage(systemName: "plus")
+        
         ///선택되었을 때 보여질 이미지
-        secondNavigationController.tabBarItem.selectedImage = UIImage(named: "")
+        secondNavigationController.tabBarItem.selectedImage = UIImage(systemName: "plus")
+        secondNavigationController.tabBarItem.image?.withTintColor(.systemMint)
         ///탭바 아이템 타이틀
         secondNavigationController.tabBarItem.title = "추가"
         
@@ -52,9 +54,9 @@ extension TabBarViewController {
         let thirdTabController = MyViewController()
         thirdNavigationController.addChild(thirdTabController)
         ///기본으로 보여질 이미지
-        thirdNavigationController.tabBarItem.image = UIImage(named: "")
+        thirdNavigationController.tabBarItem.image = UIImage(systemName: "person")
         ///선택되었을 때 보여질 이미지
-        thirdNavigationController.tabBarItem.selectedImage = UIImage(named: "")
+        thirdNavigationController.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
         ///탭바 아이템 타이틀
         thirdNavigationController.tabBarItem.title = "MY"
         let tabBar: UITabBar = self.tabBar
