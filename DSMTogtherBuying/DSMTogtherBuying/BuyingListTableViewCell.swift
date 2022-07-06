@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 import Then
-class buyingListTableViewCell: UITableViewCell {
+class BuyingListTableViewCell: UITableViewCell {
 
     var buyingListTitle = UILabel().then {
         $0.textColor = .black

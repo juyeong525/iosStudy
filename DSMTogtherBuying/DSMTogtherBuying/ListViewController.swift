@@ -16,7 +16,7 @@ class ListViewController: UIViewController {
         super.viewDidLoad()
         ListTableView.delegate = self
         ListTableView.dataSource = self
-        ListTableView.register(buyingListTableViewCell.self, forCellReuseIdentifier: "buyingListTableViewCell")
+        ListTableView.register(BuyingListTableViewCell.self, forCellReuseIdentifier: "buyingListTableViewCell")
         ListTableView.rowHeight = 200
         ListTableView.layer.cornerRadius = 30
         }
@@ -41,7 +41,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "buyingListTableViewCell", for: indexPath) as! buyingListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "buyingListTableViewCell", for: indexPath) as! BuyingListTableViewCell
         cell.buyingListTitle.text = "1"
         return cell
     }

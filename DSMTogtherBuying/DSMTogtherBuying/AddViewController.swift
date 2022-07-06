@@ -3,8 +3,7 @@ import SnapKit
 import Then
 
 class AddViewConroller: UIViewController {
-    private var infoProductTitleLabel = UILabel().then {
- 
+    private let infoProductTitleLabel = UILabel().then {
         $0.textColor = .black
         $0.text = "상품명"
         $0.layer.borderWidth = 1
@@ -68,14 +67,7 @@ class AddViewConroller: UIViewController {
     }
     
     private func setUp(){
-        view.addSubview(productTitleTextField)
-        view.addSubview(infoProductTitleLabel)
-        view.addSubview(productHomePageLinkTextField)
-        view.addSubview(infoProductHomePageLabel)
-        view.addSubview(productAllCount)
-        view.addSubview(infoProductAllCount)
-        view.addSubview(productMyCount)
-        view.addSubview(infoProductMyCount)
+        [productTitleTextField, infoProductTitleLabel, productHomePageLinkTextField, infoProductHomePageLabel, productAllCount, infoProductAllCount, productMyCount, infoProductMyCount].forEach { view.addSubview($0) }
         productTitleTextField.snp.makeConstraints {
             $0.right.equalToSuperview().inset(50)
             $0.left.equalToSuperview().inset(120)
