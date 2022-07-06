@@ -67,54 +67,25 @@ class AddViewConroller: UIViewController {
     }
     
     private func setUp(){
-        [productTitleTextField, infoProductTitleLabel, productHomePageLinkTextField, infoProductHomePageLabel, productAllCount, infoProductAllCount, productMyCount, infoProductMyCount].forEach { view.addSubview($0) }
-        productTitleTextField.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(50)
-            $0.left.equalToSuperview().inset(120)
-            $0.top.equalToSuperview().inset(100)
-            $0.bottom.equalToSuperview().inset(750)
+        [productTitleTextField, productHomePageLinkTextField, productAllCount, productMyCount].enumerated().forEach {
+            view.addSubview($1)
+            let index = $0
+            $1.snp.makeConstraints {
+                $0.right.equalToSuperview().inset(50)
+                $0.left.equalToSuperview().inset(120)
+                $0.top.equalToSuperview().inset(100+index*100)
+                $0.bottom.equalToSuperview().inset(750-index*100)
+            }
         }
-        infoProductTitleLabel.snp.makeConstraints {
-            $0.right.equalTo(productTitleTextField.snp.left)
-            $0.left.equalToSuperview().inset(50)
-            $0.top.equalToSuperview().inset(100)
-            $0.bottom.equalToSuperview().inset(750)
-        }
-        productHomePageLinkTextField.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(50)
-            $0.left.equalToSuperview().inset(120)
-            $0.top.equalToSuperview().inset(200)
-            $0.bottom.equalToSuperview().inset(650)
-        }
-        infoProductHomePageLabel.snp.makeConstraints {
-            $0.right.equalTo(productHomePageLinkTextField.snp.left)
-            $0.left.equalToSuperview().inset(50)
-            $0.top.equalToSuperview().inset(200)
-            $0.bottom.equalToSuperview().inset(650)
-        }
-        productAllCount.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(50)
-            $0.left.equalToSuperview().inset(120)
-            $0.top.equalToSuperview().inset(300)
-            $0.bottom.equalToSuperview().inset(550)
-        }
-        infoProductAllCount.snp.makeConstraints {
-            $0.right.equalTo(productTitleTextField.snp.left)
-            $0.left.equalToSuperview().inset(50)
-            $0.top.equalToSuperview().inset(300)
-            $0.bottom.equalToSuperview().inset(550)
-        }
-        productMyCount.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(50)
-            $0.left.equalToSuperview().inset(120)
-            $0.top.equalToSuperview().inset(400)
-            $0.bottom.equalToSuperview().inset(450)
-        }
-        infoProductMyCount.snp.makeConstraints {
-            $0.right.equalTo(productTitleTextField.snp.left)
-            $0.left.equalToSuperview().inset(50)
-            $0.top.equalToSuperview().inset(400)
-            $0.bottom.equalToSuperview().inset(450)
+        [infoProductTitleLabel, infoProductHomePageLabel, infoProductAllCount, infoProductMyCount].enumerated().forEach {
+            view.addSubview($1)
+            let index = $0
+            $1.snp.makeConstraints {
+                $0.right.equalTo(productTitleTextField.snp.left)
+                $0.left.equalToSuperview().inset(50)
+                $0.top.equalToSuperview().inset(100+index*100)
+                $0.bottom.equalToSuperview().inset(750-index*100)
+            }
         }
     }
 }

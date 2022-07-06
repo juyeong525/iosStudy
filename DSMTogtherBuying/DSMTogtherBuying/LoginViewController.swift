@@ -6,11 +6,17 @@
 //
 
 import UIKit
+import Alamofire
+import SnapKit
+import Then
 
 class LoginViewController: UIViewController {
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    
+    var emailTextField = UITextField().then {
+        $0.textAlignment = .center
+    }
+    var passwordTextField = UITextField().then {
+        $0.textAlignment = .center
+    }
     private let httpClient = HTTPClient()
 
     override func viewDidLoad() {
@@ -24,9 +30,7 @@ class LoginViewController: UIViewController {
             switch res.response?.statusCode {
             case 200:
                 do {
-                    let model = try JSONDecoder().decode(TokenModel.self, from: res.data!)
-                    Token.accesstoken = model.access_token
-                    Token.refreshToken = model.resfresh_token
+                    print("성공")
                 } catch {
                     print(error)
                 }
@@ -34,18 +38,6 @@ class LoginViewController: UIViewController {
                 print(res.response?.statusCode ?? 0)
             }
         })
-        
     }
-    @IBAction func signupButtonDidTap(_ sender: UIButton) {
-        guard let vc = self.storyboard?.instantiateViewController(identifier: "SignupViewController") as? SignupViewController else {
-                return
-            }
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    @IBAction func loginButtonDidTap(_ sender: UIButton) {
-        login(email: emailTextField.text ?? "", password: passwordTextField.text ?? "")
-    }
-
-
 }
 
