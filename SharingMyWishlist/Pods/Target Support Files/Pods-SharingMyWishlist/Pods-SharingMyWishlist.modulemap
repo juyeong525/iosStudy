@@ -1,0 +1,6 @@
+framework module Pods_SharingMyWishlist {
+  umbrella header "Pods-SharingMyWishlist-umbrella.h"
+
+  export *
+  module * { export * }
+}
