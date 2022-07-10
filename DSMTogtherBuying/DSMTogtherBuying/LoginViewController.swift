@@ -23,7 +23,15 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-    
+    func setUp(){
+        view.addSubview(emailTextField)
+        emailTextField.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(100)
+            $0.right.equalToSuperview().inset(100)
+            $0.top.equalToSuperview().inset(100)
+            $0.bottom.equalToSuperview().inset(700)
+        }
+    }
     func login(email: String, password: String) {
         httpClient.post(url: AuthAPI.login.path(), params: ["email": email, "password" : password], header: Header.tokenIsEmpty.header()
         ).responseData(completionHandler: { res in

@@ -30,7 +30,6 @@ class MyViewController: UIViewController{
     var infoMyListLabel = UILabel().then {
         $0.text = "내목록"
         $0.textAlignment = .left
-        
         $0.font = UIFont.systemFont(ofSize: 20)
     }
     var myListTableView = UITableView()
