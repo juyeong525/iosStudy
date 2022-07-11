@@ -25,6 +25,13 @@ class LoginViewController: UIViewController {
     }
     func setUp(){
         view.addSubview(emailTextField)
+        view.addSubview(passwordTextField)
+        passwordTextField.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(100)
+            $0.right.equalToSuperview().inset(100)
+            $0.top.equalToSuperview().inset(100)
+            $0.bottom.equalToSuperview().inset(700)
+        }
         emailTextField.snp.makeConstraints {
             $0.left.equalToSuperview().inset(100)
             $0.right.equalToSuperview().inset(100)

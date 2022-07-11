@@ -33,12 +33,21 @@ class MyViewController: UIViewController{
         $0.font = UIFont.systemFont(ofSize: 20)
     }
     var myListTableView = UITableView()
+    var loginButton = UIButton().then {
+        $0.backgroundColor = .systemMint
+        $0.setTitle("로그인", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.addTarget($0, action: #selector(onLoginButton), for: .touchUpInside)
+    }
+    @objc func onLoginButton(){
+        print("클릭됨")
+    }
     func setUp(){
         view.addSubview(myNameLabel)
         view.addSubview(myImage)
         view.addSubview(infoMyListLabel)
         view.addSubview(myListTableView)
-        
+        view.addSubview(loginButton)
         myImage.snp.makeConstraints {
             $0.top.equalTo(100)
             $0.right.equalToSuperview().inset(150)
@@ -62,6 +71,12 @@ class MyViewController: UIViewController{
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
             $0.bottom.equalToSuperview().inset(200)
+        }
+        loginButton.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(300)
+            $0.right.equalToSuperview().inset(20)
+            $0.top.equalToSuperview().inset(50)
+            $0.bottom.equalTo(myImage.snp.top)
         }
     }
     
