@@ -10,16 +10,8 @@ import UIKit
 import SnapKit
 import Then
 import Alamofire
-class MyViewController: UIViewController{
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        myListTableView.delegate = self
-        myListTableView.dataSource = self
-        myListTableView.register(BuyingListTableViewCell.self, forCellReuseIdentifier: "buyingListTableViewCell")
-    }
-    override func viewWillLayoutSubviews() {
-        setUp()
-    }
+class MyProfileViewController: UIViewController{
+    
     var myNameLabel = UILabel().then {
         $0.textAlignment = .center
         $0.text = "박주영"
@@ -33,55 +25,62 @@ class MyViewController: UIViewController{
         $0.font = UIFont.systemFont(ofSize: 20)
     }
     var myListTableView = UITableView()
-    var loginButton = UIButton().then {
+    
+    lazy var loginButton = UIButton(type: .system).then {
         $0.backgroundColor = .systemMint
         $0.setTitle("로그인", for: .normal)
         $0.setTitleColor(.white, for: .normal)
-        $0.addTarget($0, action: #selector(onLoginButton), for: .touchUpInside)
+        $0.layer.cornerRadius = 15
     }
-    @objc func onLoginButton(){
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        myListTableView.delegate = self
+        myListTableView.dataSource = self
+        myListTableView.register(BuyingListTableViewCell.self, forCellReuseIdentifier: "buyingListTableViewCell")
+        loginButton.addTarget(self, action: #selector(onLoginButton), for: .touchUpInside)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        setUp()
+    }
+    
+    @objc func onLoginButton(_ sender: UIButton){
         print("클릭됨")
+        let vc = LoginViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
+
     func setUp(){
-        view.addSubview(myNameLabel)
-        view.addSubview(myImage)
-        view.addSubview(infoMyListLabel)
-        view.addSubview(myListTableView)
-        view.addSubview(loginButton)
+        [myNameLabel, myImage, infoMyListLabel, myListTableView, loginButton]
+            .forEach { view.addSubview($0) }
         myImage.snp.makeConstraints {
-            $0.top.equalTo(100)
-            $0.right.equalToSuperview().inset(150)
-            $0.left.equalToSuperview().inset(150)
-            $0.bottom.equalToSuperview().inset(700)
+            $0.top.equalTo(60)
+            $0.leading.trailing.equalToSuperview().inset(150)
+            $0.height.equalTo(100)
         }
         myNameLabel.snp.makeConstraints {
             $0.top.equalTo(myImage.snp.bottom)
-            $0.left.equalToSuperview()
-            $0.right.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(650)
+            $0.centerX.equalToSuperview()
         }
         infoMyListLabel.snp.makeConstraints {
-            $0.top.equalTo(myNameLabel.snp.bottom)
-            $0.left.equalToSuperview()
-            $0.right.equalToSuperview().inset(350)
-            $0.bottom.equalToSuperview().inset(600)
+            $0.top.equalTo(myNameLabel.snp.bottom).offset(30)
+            $0.leading.equalToSuperview().inset(16)
         }
         myListTableView.snp.makeConstraints {
             $0.top.equalTo(infoMyListLabel.snp.bottom)
-            $0.left.equalToSuperview()
-            $0.right.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(200)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         loginButton.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(300)
-            $0.right.equalToSuperview().inset(20)
-            $0.top.equalToSuperview().inset(50)
-            $0.bottom.equalTo(myImage.snp.top)
+            $0.top.equalTo(view.snp.topMargin)
+            $0.trailing.equalToSuperview().inset(16)
+            $0.width.equalTo(50)
+            $0.height.equalTo(40)
         }
     }
     
 }
-extension MyViewController: UITableViewDelegate, UITableViewDataSource {
+extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }

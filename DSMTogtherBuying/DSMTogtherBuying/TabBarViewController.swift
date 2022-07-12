@@ -51,7 +51,7 @@ extension TabBarViewController {
         
         
         let thirdNavigationController = UINavigationController()
-        let thirdTabController = MyViewController()
+        let thirdTabController = MyProfileViewController()
         thirdNavigationController.addChild(thirdTabController)
         ///기본으로 보여질 이미지
         thirdNavigationController.tabBarItem.image = UIImage(systemName: "person")

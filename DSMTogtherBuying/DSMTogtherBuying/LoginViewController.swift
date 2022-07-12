@@ -21,7 +21,7 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .white
     }
     func setUp(){
         view.addSubview(emailTextField)
@@ -44,11 +44,7 @@ class LoginViewController: UIViewController {
         ).responseData(completionHandler: { res in
             switch res.response?.statusCode {
             case 200:
-                do {
-                    print("성공")
-                } catch {
-                    print(error)
-                }
+                print("성공")
             default:
                 print(res.response?.statusCode ?? 0)
             }
