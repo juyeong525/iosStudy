@@ -67,23 +67,47 @@ class AddViewConroller: UIViewController {
         $0.layer.cornerRadius = 10
         $0.font = .systemFont(ofSize: 15)
     }
-    private var label = UILabel().then {
-        $0.text = "레이블"
+    private var infoBuyerAccountLabel = UILabel().then {
+        $0.textColor = .black
+        $0.text = "계좌번호"
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = UIColor.black.cgColor
         $0.textAlignment = .center
+        $0.layer.cornerRadius = 10
         $0.font = .systemFont(ofSize: 15)
+    }
+    private var BuyerAccountTextField = UITextField().then {
+        $0.textAlignment = .center
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = UIColor.black.cgColor
+        $0.layer.cornerRadius = 10
+        $0.font = .systemFont(ofSize: 15)
+    }
+    lazy var storeButton = UIButton(type: .system).then {
+        $0.backgroundColor = .systemMint
+        $0.setTitle("게시", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.layer.cornerRadius = 15
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        storeButton.addTarget(self, action: #selector(storeButtonTouch), for: .touchUpInside)
     }
     override func viewDidLayoutSubviews() {
         setUp()
     }
-    private var skyBlueBox = UILabel()
-    private var BlueBox = UILabel()
+    @objc func storeButtonTouch(_ sender:UIButton){
+        let alert = UIAlertController(title: "게시", message: "이 상품을 게시 하시겠습니까?", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            self.dismiss(animated: true)
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     
+    }
     private func setUp(){
-        [productTitleTextField, infoProductTitleLabel,productHomePageLinkTextField,infoProductHomePageLabel, productAllCount, infoProductAllCount,productMyCount,infoProductMyCount].forEach {view.addSubview($0)}
+        [productTitleTextField,infoProductTitleLabel,productHomePageLinkTextField,infoProductHomePageLabel,productAllCount, infoProductAllCount,productMyCount,infoProductMyCount,storeButton,infoBuyerAccountLabel,BuyerAccountTextField].forEach {view.addSubview($0)}
         infoProductTitleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().inset(30)
             $0.top.equalToSuperview().inset(150)
@@ -132,15 +156,23 @@ class AddViewConroller: UIViewController {
             $0.right.equalToSuperview().inset(30)
             $0.height.equalTo(50)
         }
-        skyBlueBox.snp.remakeConstraints {
-            $0.top.left.bottom.right.equalToSuperview().inset(50)
+        infoBuyerAccountLabel.snp.makeConstraints {
+            $0.left.equalTo(infoProductTitleLabel.snp.left)
+            $0.top.equalTo(infoProductMyCount.snp.bottom).offset(20)
+            $0.width.equalTo(80)
+            $0.height.equalTo(50)
         }
-        
-        BlueBox.snp.remakeConstraints {
-            $0.top.equalTo(skyBlueBox.snp.top).offset(50)
-            $0.bottom.equalTo(skyBlueBox.snp.bottom).offset(50)
-            $0.left.equalTo(skyBlueBox.snp.left).offset(50)
-            $0.right.equalTo(skyBlueBox.snp.right).offset(50)
+        BuyerAccountTextField.snp.makeConstraints {
+            $0.left.equalTo(infoProductHomePageLabel.snp.right)
+            $0.top.equalTo(infoProductMyCount.snp.bottom).offset(20)
+            $0.right.equalToSuperview().inset(30)
+            $0.height.equalTo(50)
+        }
+        storeButton.snp.makeConstraints {
+            $0.top.equalTo(view.snp.topMargin)
+            $0.left.equalToSuperview().inset(300)
+            $0.width.equalTo(80)
+            $0.height.equalTo(40)
         }
         
     }
