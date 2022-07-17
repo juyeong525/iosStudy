@@ -39,6 +39,7 @@ class MyProfileViewController: UIViewController{
         myListTableView.dataSource = self
         myListTableView.register(BuyingListTableViewCell.self, forCellReuseIdentifier: "buyingListTableViewCell")
         loginButton.addTarget(self, action: #selector(onLoginButton), for: .touchUpInside)
+        self.navigationController?.navigationBar.topItem?.title = "MY"
     }
     
     override func viewWillLayoutSubviews() {
@@ -55,7 +56,7 @@ class MyProfileViewController: UIViewController{
         [myNameLabel, myImage, infoMyListLabel, myListTableView, loginButton]
             .forEach { view.addSubview($0) }
         myImage.snp.makeConstraints {
-            $0.top.equalTo(60)
+            $0.top.equalTo(view.snp.topMargin)
             $0.leading.trailing.equalToSuperview().inset(150)
             $0.height.equalTo(100)
         }
@@ -74,7 +75,7 @@ class MyProfileViewController: UIViewController{
         loginButton.snp.makeConstraints {
             $0.top.equalTo(view.snp.topMargin)
             $0.trailing.equalToSuperview().inset(16)
-            $0.width.equalTo(50)
+            $0.width.equalTo(70)
             $0.height.equalTo(40)
         }
     }

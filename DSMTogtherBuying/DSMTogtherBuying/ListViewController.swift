@@ -18,7 +18,8 @@ class ListViewController: UIViewController {
         ListTableView.dataSource = self
         ListTableView.register(BuyingListTableViewCell.self, forCellReuseIdentifier: "buyingListTableViewCell")
         ListTableView.rowHeight = 200
-        ListTableView.layer.cornerRadius = 30
+        ListTableView.layer.cornerRadius = 15
+        self.navigationController?.navigationBar.topItem?.title = "목록"
         }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -37,7 +38,7 @@ class ListViewController: UIViewController {
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

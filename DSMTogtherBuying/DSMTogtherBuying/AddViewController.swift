@@ -93,6 +93,7 @@ class AddViewConroller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         storeButton.addTarget(self, action: #selector(storeButtonTouch), for: .touchUpInside)
+        self.navigationController?.navigationBar.topItem?.title = "추가"
     }
     override func viewDidLayoutSubviews() {
         setUp()
@@ -111,11 +112,11 @@ class AddViewConroller: UIViewController {
         infoProductTitleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().inset(30)
             $0.top.equalToSuperview().inset(150)
-            $0.width.equalTo(80)
+            $0.width.equalTo(70)
             $0.height.equalTo(50)
         }
         productTitleTextField.snp.makeConstraints {
-            $0.left.equalTo(infoProductTitleLabel.snp.right)
+            $0.left.equalTo(infoProductTitleLabel.snp.right).offset(15)
             $0.top.equalTo(infoProductTitleLabel.snp.top)
             $0.right.equalToSuperview().inset(30)
             $0.height.equalTo(50)
@@ -123,11 +124,11 @@ class AddViewConroller: UIViewController {
         infoProductHomePageLabel.snp.makeConstraints {
             $0.left.equalTo(infoProductTitleLabel.snp.left)
             $0.top.equalTo(infoProductTitleLabel.snp.bottom).offset(20)
-            $0.width.equalTo(80)
+            $0.width.equalTo(70)
             $0.height.equalTo(50)
         }
         productHomePageLinkTextField.snp.makeConstraints {
-            $0.left.equalTo(infoProductHomePageLabel.snp.right)
+            $0.left.equalTo(infoProductHomePageLabel.snp.right).offset(15)
             $0.top.equalTo(infoProductHomePageLabel.snp.top)
             $0.right.equalToSuperview().inset(30)
             $0.height.equalTo(50)
@@ -135,11 +136,11 @@ class AddViewConroller: UIViewController {
         infoProductAllCount.snp.makeConstraints {
             $0.left.equalTo(infoProductTitleLabel.snp.left)
             $0.top.equalTo(infoProductHomePageLabel.snp.bottom).offset(20)
-            $0.width.equalTo(80)
+            $0.width.equalTo(70)
             $0.height.equalTo(50)
         }
         productAllCount.snp.makeConstraints {
-            $0.left.equalTo(infoProductTitleLabel.snp.right)
+            $0.left.equalTo(infoProductTitleLabel.snp.right).offset(15)
             $0.top.equalTo(infoProductHomePageLabel.snp.bottom).offset(20)
             $0.right.equalToSuperview().inset(30)
             $0.height.equalTo(50)
@@ -147,11 +148,11 @@ class AddViewConroller: UIViewController {
         infoProductMyCount.snp.makeConstraints {
             $0.left.equalTo(infoProductTitleLabel.snp.left)
             $0.top.equalTo(infoProductAllCount.snp.bottom).offset(20)
-            $0.width.equalTo(80)
+            $0.width.equalTo(70)
             $0.height.equalTo(50)
         }
         productMyCount.snp.makeConstraints {
-            $0.left.equalTo(infoProductHomePageLabel.snp.right)
+            $0.left.equalTo(infoProductHomePageLabel.snp.right).offset(15)
             $0.top.equalTo(infoProductAllCount.snp.bottom).offset(20)
             $0.right.equalToSuperview().inset(30)
             $0.height.equalTo(50)
@@ -159,11 +160,11 @@ class AddViewConroller: UIViewController {
         infoBuyerAccountLabel.snp.makeConstraints {
             $0.left.equalTo(infoProductTitleLabel.snp.left)
             $0.top.equalTo(infoProductMyCount.snp.bottom).offset(20)
-            $0.width.equalTo(80)
+            $0.width.equalTo(70)
             $0.height.equalTo(50)
         }
         BuyerAccountTextField.snp.makeConstraints {
-            $0.left.equalTo(infoProductHomePageLabel.snp.right)
+            $0.left.equalTo(infoProductHomePageLabel.snp.right).offset(15)
             $0.top.equalTo(infoProductMyCount.snp.bottom).offset(20)
             $0.right.equalToSuperview().inset(30)
             $0.height.equalTo(50)
