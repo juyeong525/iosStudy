@@ -17,7 +17,7 @@ class ListViewController: UIViewController {
         ListTableView.delegate = self
         ListTableView.dataSource = self
         ListTableView.register(BuyingListTableViewCell.self, forCellReuseIdentifier: "buyingListTableViewCell")
-        ListTableView.rowHeight = 200
+        ListTableView.rowHeight = 100
         ListTableView.layer.cornerRadius = 15
         self.navigationController?.navigationBar.topItem?.title = "목록"
         }

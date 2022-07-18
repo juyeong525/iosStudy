@@ -14,7 +14,14 @@ class BuyingListTableViewCell: UITableViewCell {
         $0.textColor = .black
         $0.textAlignment = .left
     }
-    var buyingImageView = UIImageView()
+    var buyingListRemainCount = UILabel().then {
+        $0.textColor = .red
+        $0.textAlignment = .left
+    }
+    var buyingListAllCount = UILabel().then {
+        $0.textColor = .black
+        $0.textAlignment = .left
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -26,23 +33,23 @@ class BuyingListTableViewCell: UITableViewCell {
         
     }
     func setUp(){
-        self.addSubview(buyingListTitle)
-        self.addSubview(buyingImageView)
+        [buyingListTitle,buyingListAllCount,buyingListRemainCount].forEach{self.addSubview($0)}
         self.layer.cornerRadius = 20
         self.layer.borderWidth = 2
         self.layer.borderColor = UIColor.systemMint.cgColor
-        buyingImageView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.left.equalToSuperview().inset(50)
-            $0.bottom.equalToSuperview()
-            $0.right.equalToSuperview().inset(300)
-        }
         buyingListTitle.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.left.equalTo(buyingImageView.snp.right)
-            $0.bottom.equalToSuperview()
+            $0.left.equalToSuperview().offset(30)
             $0.right.equalToSuperview()
+            $0.width.equalTo(33)
         }
+        buyingListAllCount.snp.makeConstraints {
+            $0.top.equalTo(buyingListTitle.snp.bottom)
+            $0.left.equalToSuperview().offset(30)
+            $0.right.equalToSuperview()
+            $0.width.equalTo(33)
+        }
+        
     }
 
 }

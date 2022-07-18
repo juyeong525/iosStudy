@@ -11,6 +11,7 @@ import SnapKit
 import Then
 
 class LoginViewController: UIViewController {
+    private let httpClient = HTTPClient()
     var eyeButtonTouching = false
     var emailTextField = UITextField().then {
         $0.textAlignment = .center
@@ -56,7 +57,7 @@ class LoginViewController: UIViewController {
         $0.layer.cornerRadius = 15
         $0.layer.borderWidth = 1
     }
-    private let httpClient = HTTPClient()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
