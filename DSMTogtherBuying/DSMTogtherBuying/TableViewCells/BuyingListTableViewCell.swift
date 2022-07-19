@@ -14,14 +14,15 @@ class BuyingListTableViewCell: UITableViewCell {
         $0.textColor = .black
         $0.textAlignment = .left
     }
-    var buyingListRemainCount = UILabel().then {
-        $0.textColor = .red
-        $0.textAlignment = .left
-    }
-    var buyingListAllCount = UILabel().then {
+    var buyerNickName = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
+        $0.font = UIFont.boldSystemFont(ofSize: 15)
     }
+    var buyerImage = UIImageView().then {
+        $0.layer.cornerRadius = 30
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -30,32 +31,28 @@ class BuyingListTableViewCell: UITableViewCell {
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
     }
     func setUp(){
-        [buyingListTitle,buyingListAllCount,buyingListRemainCount].forEach{self.addSubview($0)}
-        self.layer.cornerRadius = 20
-        self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.black.cgColor
+        
+        [buyingListTitle,buyerNickName,buyerImage].forEach{self.addSubview($0)}
+        buyerImage.snp.makeConstraints {
+            $0.left.equalToSuperview().inset(15)
+            $0.width.equalTo(57)
+            $0.height.equalTo(60)
+            $0.top.equalToSuperview().inset(10)
+        }
         buyingListTitle.snp.makeConstraints {
+            $0.top.equalTo(buyerNickName.snp.bottom)
+            $0.left.equalTo(buyerImage.snp.right).offset(15)
+            $0.right.equalToSuperview()
+            $0.height.equalTo(40)
+        }
+        buyerNickName.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.left.equalToSuperview().offset(30)
+            $0.left.equalTo(buyerImage.snp.right).offset(15)
             $0.right.equalToSuperview()
-            $0.height.equalTo(33)
-        }
-        buyingListAllCount.snp.makeConstraints {
-            $0.top.equalTo(buyingListTitle.snp.bottom)
-            $0.left.equalToSuperview().offset(30)
-            $0.right.equalToSuperview()
-            $0.height.equalTo(33)
-        }
-        buyingListRemainCount.snp.makeConstraints {
-            $0.top.equalTo(buyingListAllCount.snp.bottom)
-            $0.left.equalToSuperview().offset(30)
-            $0.right.equalToSuperview()
-            $0.height.equalTo(33)
+            $0.height.equalTo(40)
         }
         
     }
-
 }

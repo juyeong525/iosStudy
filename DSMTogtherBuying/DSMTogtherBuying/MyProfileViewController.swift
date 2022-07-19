@@ -37,7 +37,8 @@ class MyProfileViewController: UIViewController{
         super.viewDidLoad()
         myListTableView.delegate = self
         myListTableView.dataSource = self
-        myListTableView.register(BuyingListTableViewCell.self, forCellReuseIdentifier: "buyingListTableViewCell")
+        myListTableView.register(MYListTableViewCell.self, forCellReuseIdentifier: "MyListTableViewCell")
+        myListTableView.rowHeight = 50
         loginButton.addTarget(self, action: #selector(onLoginButton), for: .touchUpInside)
         self.navigationController?.navigationBar.topItem?.title = "MY"
     }
@@ -88,8 +89,8 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "buyingListTableViewCell", for: indexPath) as! BuyingListTableViewCell
-        cell.buyingListTitle.text = "1"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyListTableViewCell", for: indexPath) as! MYListTableViewCell
+        cell.myListTitle.text = "fsfasdfasfsaD"
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

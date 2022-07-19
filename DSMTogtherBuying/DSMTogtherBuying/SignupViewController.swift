@@ -33,7 +33,7 @@ class SignupViewController: UIViewController {
         $0.tintColor = .gray
     }
     var signupButton = UIButton(type: .system).then {
-        $0.setTitle("회원가이", for: .normal)
+        $0.setTitle("회원가입", for: .normal)
         $0.backgroundColor = .black
         $0.setTitleColor(.white, for: .normal)
         $0.layer.borderWidth = 1
