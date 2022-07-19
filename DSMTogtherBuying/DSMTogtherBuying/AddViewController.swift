@@ -3,6 +3,7 @@ import SnapKit
 import Then
 
 class AddViewConroller: UIViewController {
+    var count = 0
     private let infoProductTitleLabel = UILabel().then {
         $0.textColor = .black
         $0.text = "상품명"
@@ -84,7 +85,7 @@ class AddViewConroller: UIViewController {
         $0.font = .systemFont(ofSize: 15)
     }
     lazy var storeButton = UIButton(type: .system).then {
-        $0.backgroundColor = .systemMint
+        $0.backgroundColor = .black
         $0.setTitle("게시", for: .normal)
         $0.setTitleColor(.white, for: .normal)
         $0.layer.cornerRadius = 15
@@ -99,13 +100,26 @@ class AddViewConroller: UIViewController {
         setUp()
     }
     @objc func storeButtonTouch(_ sender:UIButton){
-        let alert = UIAlertController(title: "게시", message: "이 상품을 게시 하시겠습니까?", preferredStyle: UIAlertController.Style.alert)
+        count = 0
+        [productTitleTextField,productHomePageLinkTextField,productAllCount,productMyCount,BuyerAccountTextField].forEach {
+            if $0.text?.isEmpty == true{
+                count += 1
+            }
+        }
+        if count > 0 {
+            alert(title: "오류", message: "빈칸이 있습니다")
+        }else{
+            alert(title: "게시", message: "이 상품을 게시하시겠습니까?")
+        }
+        
+    }
+    private func alert(title:String,message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
             self.dismiss(animated: true)
         }
         alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
-    
+        present(alert, animated: true, completion:nil)
     }
     private func setUp(){
         [productTitleTextField,infoProductTitleLabel,productHomePageLinkTextField,infoProductHomePageLabel,productAllCount, infoProductAllCount,productMyCount,infoProductMyCount,storeButton,infoBuyerAccountLabel,BuyerAccountTextField].forEach {view.addSubview($0)}
@@ -170,10 +184,10 @@ class AddViewConroller: UIViewController {
             $0.height.equalTo(50)
         }
         storeButton.snp.makeConstraints {
-            $0.top.equalTo(view.snp.topMargin)
-            $0.left.equalToSuperview().inset(300)
-            $0.width.equalTo(80)
-            $0.height.equalTo(40)
+            $0.bottom.equalTo(view.snp.bottomMargin).inset(15)
+            $0.left.equalToSuperview().inset(30)
+            $0.right.equalToSuperview().inset(30)
+            $0.height.equalTo(50)
         }
         
     }

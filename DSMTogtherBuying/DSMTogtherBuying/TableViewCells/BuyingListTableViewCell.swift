@@ -36,18 +36,24 @@ class BuyingListTableViewCell: UITableViewCell {
         [buyingListTitle,buyingListAllCount,buyingListRemainCount].forEach{self.addSubview($0)}
         self.layer.cornerRadius = 20
         self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.systemMint.cgColor
+        self.layer.borderColor = UIColor.black.cgColor
         buyingListTitle.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.left.equalToSuperview().offset(30)
             $0.right.equalToSuperview()
-            $0.width.equalTo(33)
+            $0.height.equalTo(33)
         }
         buyingListAllCount.snp.makeConstraints {
             $0.top.equalTo(buyingListTitle.snp.bottom)
             $0.left.equalToSuperview().offset(30)
             $0.right.equalToSuperview()
-            $0.width.equalTo(33)
+            $0.height.equalTo(33)
+        }
+        buyingListRemainCount.snp.makeConstraints {
+            $0.top.equalTo(buyingListAllCount.snp.bottom)
+            $0.left.equalToSuperview().offset(30)
+            $0.right.equalToSuperview()
+            $0.height.equalTo(33)
         }
         
     }

@@ -14,50 +14,42 @@ class LoginViewController: UIViewController {
     private let httpClient = HTTPClient()
     var eyeButtonTouching = false
     var emailTextField = UITextField().then {
-        $0.textAlignment = .center
-        $0.layer.borderWidth = 1
-        $0.layer.cornerRadius = 15
+        $0.textAlignment = .left
+        $0.placeholder = "ID"
+    }
+    var emailTextFieldLine = UIView().then {
+        $0.backgroundColor = .black
     }
     var passwordTextField = UITextField().then {
-        $0.textAlignment = .center
-        $0.layer.borderWidth = 1
+        $0.textAlignment = .left
         $0.isSecureTextEntry = true
-        $0.layer.cornerRadius = 15
+        $0.placeholder = "Password"
+    }
+    var passwordTextFieldLine = UIView().then {
+        $0.backgroundColor = .black
     }
     var eyeButton = UIButton(type: .system).then {
         $0.setImage(UIImage(systemName: "eye.slash"), for: .normal)
         $0.tintColor = .gray
     }
-    var infoEmailLabel = UILabel().then {
-        $0.textAlignment = .center
-        $0.layer.borderWidth = 1
-        $0.text = "이메일"
-        $0.layer.cornerRadius = 15
-    }
-    var infoPasswordLabel = UILabel().then {
-        $0.textAlignment = .center
-        $0.layer.borderWidth = 1
-        $0.text = "비밀번호"
-        $0.layer.cornerRadius = 15
-    }
-    var nickNameTextField = UITextField().then {
-        $0.textAlignment = .center
+    var loginButton = UIButton(type: .system).then {
+        $0.setTitle("로그인", for: .normal)
+        $0.backgroundColor = .black
+        $0.setTitleColor(.white, for: .normal)
         $0.layer.borderWidth = 1
         $0.layer.cornerRadius = 15
     }
-    var infoNickNameLabel = UILabel().then {
-        $0.textAlignment = .center
-        $0.layer.borderWidth = 1
-        $0.text = "닉네임"
-        $0.layer.cornerRadius = 15
+    var signupLabel = UILabel().then {
+        $0.text = "아직 회원가입을 안하셨나요?"
+        $0.textAlignment = .left
+        $0.textColor = .gray
+        $0.font = UIFont.systemFont(ofSize: 15)
     }
-    var doubleCheckingButton = UIButton(type: .system).then {
-        $0.setTitle("중복확인", for: .normal)
-        $0.tintColor = .gray
-        $0.layer.cornerRadius = 15
-        $0.layer.borderWidth = 1
+    var signupButton = UIButton(type: .system).then {
+        $0.setTitle("회원가입", for: .normal)
+        $0.titleLabel?.textAlignment = .center
+        $0.setTitleColor(.gray, for: .normal)
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -68,7 +60,8 @@ class LoginViewController: UIViewController {
     }
     func buttonTarget(){
         eyeButton.addTarget(self, action: #selector(selectedEyeButton), for: .touchUpInside)
-        doubleCheckingButton.addTarget(self, action: #selector(selectedDoubleCheckButton), for: .touchUpInside)
+        signupButton.addTarget(self, action: #selector(touchSignupButton), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(touchLoginButton), for: .touchUpInside)
     }
     @objc func selectedEyeButton(_ sender : UIButton){
         if eyeButtonTouching == false {
@@ -82,63 +75,67 @@ class LoginViewController: UIViewController {
         }
         
     }
-    @objc func selectedDoubleCheckButton(){
-        
+    @objc func touchSignupButton(){
+        let vc = SignupViewController()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+    }
+    @objc func touchLoginButton(){
+        self.dismiss(animated: true)
     }
     func setUp(){
-        [infoEmailLabel,emailTextField,infoPasswordLabel,passwordTextField,eyeButton,nickNameTextField,infoNickNameLabel,doubleCheckingButton].forEach({
+        [emailTextField,passwordTextField,eyeButton,loginButton,signupButton,passwordTextFieldLine,emailTextFieldLine,signupLabel].forEach({
             view.addSubview($0)
         })
-        infoEmailLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(30)
-            $0.top.equalToSuperview().inset(100)
-            $0.height.equalTo(50)
-            $0.width.equalTo(70)
-        }
         emailTextField.snp.makeConstraints {
-            $0.left.equalTo(infoEmailLabel.snp.right).offset(15)
-            $0.top.equalToSuperview().inset(100)
+            $0.left.equalToSuperview().inset(30)
+            $0.top.equalToSuperview().inset(150)
             $0.right.equalToSuperview().inset(30)
             $0.height.equalTo(50)
         }
-        infoPasswordLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(30)
-            $0.top.equalTo(infoEmailLabel.snp.bottom).offset(20)
-            $0.height.equalTo(50)
-            $0.width.equalTo(70)
+        emailTextFieldLine.snp.makeConstraints {
+            $0.width.equalTo(emailTextField.snp.width)
+            $0.height.equalTo(3)
+            $0.top.equalTo(emailTextField.snp.bottom)
+            $0.left.equalTo(emailTextField.snp.left)
+        }
+        passwordTextFieldLine.snp.makeConstraints {
+            $0.width.equalTo(passwordTextField.snp.width)
+            $0.height.equalTo(3)
+            $0.top.equalTo(passwordTextField.snp.bottom)
+            $0.left.equalTo(passwordTextField.snp.left)
         }
         passwordTextField.snp.makeConstraints {
-            $0.left.equalTo(infoPasswordLabel.snp.right).offset(15)
+            $0.left.equalToSuperview().inset(30)
             $0.right.equalToSuperview().inset(30)
             $0.top.equalTo(emailTextField.snp.bottom).offset(20)
             $0.height.equalTo(50)
         }
+        
         eyeButton.snp.makeConstraints {
             $0.right.equalToSuperview().inset(30)
             $0.width.equalTo(50)
             $0.height.equalTo(50)
             $0.top.equalTo(passwordTextField.snp.top)
         }
-        nickNameTextField.snp.makeConstraints {
-            $0.left.equalTo(infoNickNameLabel.snp.right).offset(15)
-            $0.right.equalToSuperview().inset(30)
-            $0.top.equalTo(passwordTextField.snp.bottom).offset(20)
+        signupLabel.snp.makeConstraints {
+            $0.left.equalTo(passwordTextFieldLine.snp.left)
+            $0.right.equalTo(signupButton.snp.left)
+            $0.top.equalTo(signupButton.snp.top)
             $0.height.equalTo(50)
         }
-        infoNickNameLabel.snp.makeConstraints {
+        loginButton.snp.makeConstraints {
+            $0.bottom.equalTo(view.snp.bottomMargin).inset(15)
             $0.left.equalToSuperview().inset(30)
-            $0.top.equalTo(infoPasswordLabel.snp.bottom).offset(20)
+            $0.right.equalToSuperview().inset(30)
             $0.height.equalTo(50)
+        }
+        signupButton.snp.makeConstraints {
+            $0.top.equalTo(passwordTextFieldLine.snp.bottom).offset(15)
+            $0.right.equalTo(passwordTextFieldLine.snp.right)
             $0.width.equalTo(70)
+            $0.height.equalTo(50)
         }
-        doubleCheckingButton.snp.makeConstraints {
-            $0.right.equalTo(nickNameTextField.snp.right).inset(5)
-            $0.height.equalTo(40)
-            $0.width.equalTo(60)
-            $0.top.equalTo(nickNameTextField.snp.top).inset(5)
-            
-        }
-        
     }
     func login(email: String, password: String) {
         httpClient.post(url: AuthAPI.login.path(), params: ["email": email, "password" : password], header: Header.tokenIsEmpty.header()

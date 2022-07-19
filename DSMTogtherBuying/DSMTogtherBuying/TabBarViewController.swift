@@ -45,7 +45,7 @@ extension TabBarViewController {
         
         ///선택되었을 때 보여질 이미지
         secondNavigationController.tabBarItem.selectedImage = UIImage(systemName: "plus")
-        secondNavigationController.tabBarItem.image?.withTintColor(.systemMint)
+        secondNavigationController.tabBarItem.image?.withTintColor(.black)
         ///탭바 아이템 타이틀
         secondNavigationController.tabBarItem.title = "추가"
         
@@ -63,7 +63,7 @@ extension TabBarViewController {
         tabBar.backgroundColor = UIColor.clear
         tabBar.barTintColor = UIColor.white
         ///선택되었을 때 타이틀 컬러
-        tabBar.tintColor = UIColor.systemMint
+        tabBar.tintColor = UIColor.black
         ///선택안된거 타이틀 컬러
         tabBar.unselectedItemTintColor = UIColor.lightGray
         tabBar.isHidden = false

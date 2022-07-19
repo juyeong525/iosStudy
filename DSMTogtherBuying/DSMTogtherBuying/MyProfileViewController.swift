@@ -27,7 +27,7 @@ class MyProfileViewController: UIViewController{
     var myListTableView = UITableView()
     
     lazy var loginButton = UIButton(type: .system).then {
-        $0.backgroundColor = .systemMint
+        $0.backgroundColor = .black
         $0.setTitle("로그인", for: .normal)
         $0.setTitleColor(.white, for: .normal)
         $0.layer.cornerRadius = 15
@@ -49,7 +49,8 @@ class MyProfileViewController: UIViewController{
     @objc func onLoginButton(_ sender: UIButton){
         print("클릭됨")
         let vc = LoginViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
     }
 
     func setUp(){
