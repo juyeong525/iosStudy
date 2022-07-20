@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 import Then
-class BuyingListTableViewCell: UITableViewCell {
+class BuyingListTableViewCell: UITableViewCell,UITableViewDelegate {
 
     var buyingListTitle = UILabel().then {
         $0.textColor = .black
@@ -22,19 +22,22 @@ class BuyingListTableViewCell: UITableViewCell {
     var buyerImage = UIImageView().then {
         $0.layer.cornerRadius = 30
     }
-    
+    var blackLine  = UIView().then {
+        $0.backgroundColor = .black
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     override func layoutSubviews() {
         setUp()
+        
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     func setUp(){
-        
-        [buyingListTitle,buyerNickName,buyerImage].forEach{self.addSubview($0)}
+        self.selectionStyle = .blue
+        [buyingListTitle,buyerNickName,buyerImage,blackLine].forEach{self.addSubview($0)}
         buyerImage.snp.makeConstraints {
             $0.left.equalToSuperview().inset(15)
             $0.width.equalTo(57)
@@ -53,6 +56,10 @@ class BuyingListTableViewCell: UITableViewCell {
             $0.right.equalToSuperview()
             $0.height.equalTo(40)
         }
-        
+        blackLine.snp.makeConstraints {
+            $0.top.equalTo(buyingListTitle.snp.bottom)
+            $0.left.right.equalToSuperview().inset(15)
+            $0.height.equalTo(1)
+        }
     }
 }

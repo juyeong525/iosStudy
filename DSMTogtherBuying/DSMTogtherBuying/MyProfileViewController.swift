@@ -10,14 +10,19 @@ import UIKit
 import SnapKit
 import Then
 import Alamofire
-class MyProfileViewController: UIViewController{
-    
+class MyProfileViewController: UIViewController, UIPopoverPresentationControllerDelegate{
+    let imagePickController = UIImagePickerController()
     var myNameLabel = UILabel().then {
         $0.textAlignment = .center
         $0.text = "박주영"
     }
-    var myImage = UIImageView().then {
-        $0.image = UIImage.add
+    var myImageButton = UIButton().then {
+        $0.setImage(UIImage.add, for: .normal)
+        $0.backgroundColor = .black
+        $0.layer.cornerRadius = 50
+        $0.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 150), forImageIn: .normal)
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleToFill
     }
     var infoMyListLabel = UILabel().then {
         $0.text = "내목록"
@@ -39,8 +44,10 @@ class MyProfileViewController: UIViewController{
         myListTableView.dataSource = self
         myListTableView.register(MYListTableViewCell.self, forCellReuseIdentifier: "MyListTableViewCell")
         myListTableView.rowHeight = 50
-        loginButton.addTarget(self, action: #selector(onLoginButton), for: .touchUpInside)
+        targets()
         self.navigationController?.navigationBar.topItem?.title = "MY"
+        imagePickController.delegate = self
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -53,17 +60,26 @@ class MyProfileViewController: UIViewController{
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true)
     }
-
+    @objc func touchImage(){
+        imagePickController.sourceType = .photoLibrary
+        imagePickController.delegate = self
+        present(imagePickController, animated: true, completion: nil)
+       
+    }
+    func targets() {
+        loginButton.addTarget(self, action: #selector(onLoginButton), for: .touchUpInside)
+        myImageButton.addTarget(self, action: #selector(touchImage), for: .touchUpInside)
+    }
     func setUp(){
-        [myNameLabel, myImage, infoMyListLabel, myListTableView, loginButton]
+        [myNameLabel, myImageButton, infoMyListLabel, myListTableView, loginButton]
             .forEach { view.addSubview($0) }
-        myImage.snp.makeConstraints {
+        myImageButton.snp.makeConstraints {
             $0.top.equalTo(view.snp.topMargin)
-            $0.leading.trailing.equalToSuperview().inset(150)
-            $0.height.equalTo(100)
+            $0.centerX.equalToSuperview()
+            $0.height.width.equalTo(100)
         }
         myNameLabel.snp.makeConstraints {
-            $0.top.equalTo(myImage.snp.bottom)
+            $0.top.equalTo(myImageButton.snp.bottom)
             $0.centerX.equalToSuperview()
         }
         infoMyListLabel.snp.makeConstraints {
@@ -98,4 +114,13 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource {
        self.navigationController?.pushViewController(vc, animated: true)
 
    }
+}
+extension MyProfileViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            myImageButton.setImage(image, for: .normal)
+            
+        }
+        dismiss(animated: true,completion: nil)
+    }
 }

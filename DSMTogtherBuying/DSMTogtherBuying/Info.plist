@@ -4,6 +4,10 @@
 <dict>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
+		<key>Privacy - Photo Library Usage Description</key>
+		<string>앨범사용</string>
+		<key>Privacy - Camera Usage Description</key>
+		<string>카메라찍기</string>
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<false/>
 		<key>UISceneConfigurations</key>

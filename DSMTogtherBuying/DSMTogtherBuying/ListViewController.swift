@@ -43,13 +43,13 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "buyingListTableViewCell", for: indexPath) as! BuyingListTableViewCell
         cell.buyingListTitle.text = "1"
-        cell.buyerImage.image = UIImage(systemName: "plus")
+        cell.buyerImage.image = UIImage()
         cell.buyerNickName.text = "주멘"
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       let vc = ListDetailViewController()
-       self.navigationController?.pushViewController(vc, animated: true)
+        let vc = ListDetailViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
 
    }
 }
