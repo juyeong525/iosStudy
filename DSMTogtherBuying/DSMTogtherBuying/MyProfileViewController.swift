@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import Then
 import Alamofire
+import Photos
 class MyProfileViewController: UIViewController, UIPopoverPresentationControllerDelegate{
     let imagePickController = UIImagePickerController()
     var myNameLabel = UILabel().then {
@@ -18,7 +19,6 @@ class MyProfileViewController: UIViewController, UIPopoverPresentationController
     }
     var myImageButton = UIButton().then {
         $0.setImage(UIImage.add, for: .normal)
-        $0.backgroundColor = .black
         $0.layer.cornerRadius = 50
         $0.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 150), forImageIn: .normal)
         $0.clipsToBounds = true
@@ -64,7 +64,6 @@ class MyProfileViewController: UIViewController, UIPopoverPresentationController
         imagePickController.sourceType = .photoLibrary
         imagePickController.delegate = self
         present(imagePickController, animated: true, completion: nil)
-       
     }
     func targets() {
         loginButton.addTarget(self, action: #selector(onLoginButton), for: .touchUpInside)
@@ -79,7 +78,7 @@ class MyProfileViewController: UIViewController, UIPopoverPresentationController
             $0.height.width.equalTo(100)
         }
         myNameLabel.snp.makeConstraints {
-            $0.top.equalTo(myImageButton.snp.bottom)
+            $0.top.equalTo(myImageButton.snp.bottom).offset(15)
             $0.centerX.equalToSuperview()
         }
         infoMyListLabel.snp.makeConstraints {
@@ -117,10 +116,12 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource {
 }
 extension MyProfileViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            myImageButton.setImage(image, for: .normal)
-            
+        if let selectionImage = info[.originalImage] as? UIImage{
+            print(selectionImage)
+            selectionImage.jpegData(compressionQuality: 0.5)
+            myImageButton.setImage(selectionImage, for: .normal)
         }
+
         dismiss(animated: true,completion: nil)
     }
 }

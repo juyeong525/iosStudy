@@ -48,7 +48,7 @@ class LoginViewController: UIViewController {
     var signupButton = UIButton(type: .system).then {
         $0.setTitle("회원가입", for: .normal)
         $0.titleLabel?.textAlignment = .center
-        $0.setTitleColor(.gray, for: .normal)
+        $0.setTitleColor(.darkGray, for: .normal)
     }
     override func viewDidLoad() {
         super.viewDidLoad()

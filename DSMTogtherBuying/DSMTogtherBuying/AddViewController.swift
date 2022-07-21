@@ -2,89 +2,69 @@ import UIKit
 import SnapKit
 import Then
 
-class AddViewConroller: UIViewController {
+class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegate{
     var count = 0
-    private let infoProductTitleLabel = UILabel().then {
-        $0.textColor = .black
-        $0.text = "상품명"
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.black.cgColor
-        $0.textAlignment = .center
-        $0.layer.cornerRadius = 10
-        $0.font = .systemFont(ofSize: 15)
+    var restoreFrameValue: CGFloat = 0.0
+    let imagePickController = UIImagePickerController()
+    private var productImageView = UIButton().then {
+        $0.setImage(UIImage(systemName: "photo"), for: .normal)
+        $0.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 100), forImageIn: .normal)
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleToFill
+
     }
-    private var infoProductHomePageLabel = UILabel().then {
-        $0.textColor = .black
-        $0.text = "링크"
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.black.cgColor
+    private var productCommentLabel = UILabel().then {
+        $0.layer.cornerRadius = 20
         $0.textAlignment = .center
-        $0.layer.cornerRadius = 10
+        $0.textColor = .gray
         $0.font = .systemFont(ofSize: 15)
-    }
-    private var infoProductAllCount = UILabel().then {
-        $0.textColor = .black
-        $0.text = "전체개수"
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.black.cgColor
-        $0.textAlignment = .center
-        $0.layer.cornerRadius = 10
-        $0.font = .systemFont(ofSize: 15)
-    }
-    private var infoProductMyCount = UILabel().then {
-        $0.textColor = .black
-        $0.text = "구매개수"
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.black.cgColor
-        $0.textAlignment = .center
-        $0.layer.cornerRadius = 10
-        $0.font = .systemFont(ofSize: 15)
-    }
-    private var productMyCount = UITextField().then {
-        $0.textAlignment = .center
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.black.cgColor
-        $0.layer.cornerRadius = 10
-        $0.font = .systemFont(ofSize: 15)
-    }
-    private var productHomePageLinkTextField = UITextField().then {
-        $0.textAlignment = .center
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.black.cgColor
-        $0.layer.cornerRadius = 10
-        $0.font = .systemFont(ofSize: 15)
+        $0.clipsToBounds = true
+        $0.backgroundColor = .systemGray5
+        $0.text = "이미지를 눌러 변경하세요 :)"
     }
     private var productTitleTextField = UITextField().then {
-        $0.textAlignment = .center
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.black.cgColor
-        $0.layer.cornerRadius = 10
+        $0.textAlignment = .left
         $0.font = .systemFont(ofSize: 15)
-    }
-    private var productAllCount = UITextField().then {
-        $0.textAlignment = .center
+        $0.placeholder = "상품이름:"
         $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.black.cgColor
-        $0.layer.cornerRadius = 10
-        $0.font = .systemFont(ofSize: 15)
+        $0.layer.cornerRadius = 5
+        $0.layer.borderColor = UIColor.placeholderText.cgColor
+        $0.addLeftPadding()
     }
-    private var infoBuyerAccountLabel = UILabel().then {
-        $0.textColor = .black
-        $0.text = "계좌번호"
+    private var productHomePageLinkTextField = UITextField().then {
+        $0.textAlignment = .left
+        $0.font = .systemFont(ofSize: 15)
+        $0.placeholder = "링크:"
         $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.black.cgColor
-        $0.textAlignment = .center
-        $0.layer.cornerRadius = 10
-        $0.font = .systemFont(ofSize: 15)
+        $0.layer.cornerRadius = 5
+        $0.layer.borderColor = UIColor.placeholderText.cgColor
+        $0.addLeftPadding()
     }
+    private var productAllCountTextField = UITextField().then {
+        $0.textAlignment = .left
+        $0.font = .systemFont(ofSize: 15)
+        $0.placeholder = "전체개수:"
+        $0.layer.borderWidth = 1
+        $0.layer.cornerRadius = 5
+        $0.layer.borderColor = UIColor.placeholderText.cgColor
+        $0.addLeftPadding()    }
+    private var productMyCountTextField = UITextField().then {
+        $0.textAlignment = .left
+        $0.font = .systemFont(ofSize: 15)
+        $0.placeholder = "내가 구매할 개수:"
+        $0.layer.borderWidth = 1
+        $0.layer.cornerRadius = 5
+        $0.layer.borderColor = UIColor.placeholderText.cgColor
+        $0.addLeftPadding()    }
     private var BuyerAccountTextField = UITextField().then {
-        $0.textAlignment = .center
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.black.cgColor
-        $0.layer.cornerRadius = 10
+        $0.textAlignment = .left
         $0.font = .systemFont(ofSize: 15)
-    }
-    lazy var storeButton = UIButton(type: .system).then {
+        $0.placeholder = "나의 계좌번호:"
+        $0.layer.borderWidth = 1
+        $0.layer.cornerRadius = 5
+        $0.layer.borderColor = UIColor.placeholderText.cgColor
+        $0.addLeftPadding()    }
+    private var storeButton = UIButton(type: .system).then {
         $0.backgroundColor = .black
         $0.setTitle("게시", for: .normal)
         $0.setTitleColor(.white, for: .normal)
@@ -94,15 +74,42 @@ class AddViewConroller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         storeButton.addTarget(self, action: #selector(storeButtonTouch), for: .touchUpInside)
+        productImageView.addTarget(self, action: #selector(touchImage), for: .touchUpInside)
+        [productTitleTextField,productHomePageLinkTextField,productAllCountTextField,productMyCountTextField,BuyerAccountTextField].forEach {
+            $0.returnKeyType = .done
+            $0.delegate = self
+        }
         self.navigationController?.navigationBar.topItem?.title = "추가"
+      
     }
     override func viewDidLayoutSubviews() {
         setUp()
+        
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    @objc func touchImage(){
+        imagePickController.sourceType = .photoLibrary
+        imagePickController.delegate = self
+        present(imagePickController, animated: true, completion: nil)
     }
     @objc func storeButtonTouch(_ sender:UIButton){
         count = 0
-        [productTitleTextField,productHomePageLinkTextField,productAllCount,productMyCount,BuyerAccountTextField].forEach {
+        [productTitleTextField,productHomePageLinkTextField,productAllCountTextField,productMyCountTextField,BuyerAccountTextField].forEach {
             if $0.text?.isEmpty == true{
+                count += 1
+            }
+            if productImageView.currentImage == UIImage.actions{
                 count += 1
             }
         }
@@ -122,74 +129,126 @@ class AddViewConroller: UIViewController {
         present(alert, animated: true, completion:nil)
     }
     private func setUp(){
-        [productTitleTextField,infoProductTitleLabel,productHomePageLinkTextField,infoProductHomePageLabel,productAllCount, infoProductAllCount,productMyCount,infoProductMyCount,storeButton,infoBuyerAccountLabel,BuyerAccountTextField].forEach {view.addSubview($0)}
-        infoProductTitleLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(30)
-            $0.top.equalToSuperview().inset(150)
-            $0.width.equalTo(70)
-            $0.height.equalTo(50)
+        [productTitleTextField,productCommentLabel,productHomePageLinkTextField,productAllCountTextField,productMyCountTextField,BuyerAccountTextField,storeButton,productImageView].forEach {view.addSubview($0)}
+        productImageView.snp.makeConstraints {
+            if UIScreen.main.bounds.size.height > 700 && UIScreen.main.bounds.size.height<900 {
+                
+                $0.width.equalTo(250)
+                $0.height.equalTo(180)
+            }else if UIScreen.main.bounds.size.height > 900{
+                $0.width.equalTo(300)
+                $0.height.equalTo(300)
+            }
+            else{
+                
+                $0.width.equalTo(150)
+                $0.height.equalTo(100)
+            }
+            $0.centerX.equalToSuperview()
+        }
+        productCommentLabel.snp.makeConstraints {
+            $0.top.equalTo(productImageView.snp.bottom).offset(10)
+            $0.left.right.equalToSuperview().inset(25)
+            $0.height.equalTo(40)
         }
         productTitleTextField.snp.makeConstraints {
-            $0.left.equalTo(infoProductTitleLabel.snp.right).offset(15)
-            $0.top.equalTo(infoProductTitleLabel.snp.top)
-            $0.right.equalToSuperview().inset(30)
-            $0.height.equalTo(50)
-        }
-        infoProductHomePageLabel.snp.makeConstraints {
-            $0.left.equalTo(infoProductTitleLabel.snp.left)
-            $0.top.equalTo(infoProductTitleLabel.snp.bottom).offset(20)
-            $0.width.equalTo(70)
+            $0.top.equalTo(productCommentLabel.snp.bottom).offset(20)
+            $0.left.right.equalToSuperview().inset(15)
             $0.height.equalTo(50)
         }
         productHomePageLinkTextField.snp.makeConstraints {
-            $0.left.equalTo(infoProductHomePageLabel.snp.right).offset(15)
-            $0.top.equalTo(infoProductHomePageLabel.snp.top)
-            $0.right.equalToSuperview().inset(30)
+            $0.top.equalTo(productTitleTextField.snp.bottom).offset(10)
+            $0.left.right.equalToSuperview().inset(15)
             $0.height.equalTo(50)
         }
-        infoProductAllCount.snp.makeConstraints {
-            $0.left.equalTo(infoProductTitleLabel.snp.left)
-            $0.top.equalTo(infoProductHomePageLabel.snp.bottom).offset(20)
-            $0.width.equalTo(70)
+        productAllCountTextField.snp.makeConstraints {
+            $0.top.equalTo(productHomePageLinkTextField.snp.bottom).offset(10)
+            $0.left.right.equalToSuperview().inset(15)
             $0.height.equalTo(50)
         }
-        productAllCount.snp.makeConstraints {
-            $0.left.equalTo(infoProductTitleLabel.snp.right).offset(15)
-            $0.top.equalTo(infoProductHomePageLabel.snp.bottom).offset(20)
-            $0.right.equalToSuperview().inset(30)
-            $0.height.equalTo(50)
-        }
-        infoProductMyCount.snp.makeConstraints {
-            $0.left.equalTo(infoProductTitleLabel.snp.left)
-            $0.top.equalTo(infoProductAllCount.snp.bottom).offset(20)
-            $0.width.equalTo(70)
-            $0.height.equalTo(50)
-        }
-        productMyCount.snp.makeConstraints {
-            $0.left.equalTo(infoProductHomePageLabel.snp.right).offset(15)
-            $0.top.equalTo(infoProductAllCount.snp.bottom).offset(20)
-            $0.right.equalToSuperview().inset(30)
-            $0.height.equalTo(50)
-        }
-        infoBuyerAccountLabel.snp.makeConstraints {
-            $0.left.equalTo(infoProductTitleLabel.snp.left)
-            $0.top.equalTo(infoProductMyCount.snp.bottom).offset(20)
-            $0.width.equalTo(70)
+        productMyCountTextField.snp.makeConstraints {
+            $0.top.equalTo(productAllCountTextField.snp.bottom).offset(10)
+            $0.left.right.equalToSuperview().inset(15)
             $0.height.equalTo(50)
         }
         BuyerAccountTextField.snp.makeConstraints {
-            $0.left.equalTo(infoProductHomePageLabel.snp.right).offset(15)
-            $0.top.equalTo(infoProductMyCount.snp.bottom).offset(20)
-            $0.right.equalToSuperview().inset(30)
+            $0.top.equalTo(productMyCountTextField.snp.bottom).offset(10)
+            $0.left.right.equalToSuperview().inset(15)
             $0.height.equalTo(50)
         }
         storeButton.snp.makeConstraints {
             $0.bottom.equalTo(view.snp.bottomMargin).inset(15)
             $0.left.equalToSuperview().inset(30)
             $0.right.equalToSuperview().inset(30)
+            $0.top.equalTo(BuyerAccountTextField.snp.bottom).offset(20)
             $0.height.equalTo(50)
         }
-        
+       
+
+    }
+    
+
+}
+extension UITextField {
+    
+    func addLeftPadding() {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.height))
+        self.leftView = paddingView
+        self.leftViewMode = ViewMode.always
     }
 }
 
+extension AddViewConroller : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectionImage = info[.originalImage] as? UIImage{
+            print(selectionImage)
+            selectionImage.jpegData(compressionQuality: 0.5)
+            productImageView.setImage(selectionImage, for: .normal)
+            
+        }
+
+        dismiss(animated: true,completion: nil)
+    }
+}
+extension AddViewConroller: UITextFieldDelegate {
+    
+    @objc func keyboardWillAppear(noti: NSNotification) {
+        if self.view.frame.origin.y == restoreFrameValue {
+            
+            let keyboardRectangle = productImageView.frame.origin.y+70
+            self.view.frame.origin.y = -keyboardRectangle
+        
+            print("올라감")
+        }
+    }
+    
+    @objc func keyboardWillDisappear(noti: NSNotification) {
+        if self.view.frame.origin.y != restoreFrameValue {
+        
+            let keyboardRectangle = productImageView.frame.origin.y+70
+            self.view.frame.origin.y = +keyboardRectangle
+            print("내려감")
+        }
+    }
+    
+    //self.view.frame.origin.y = restoreFrameValue
+   
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.frame.origin.y = restoreFrameValue
+        print("화면 터치")
+        self.view.endEditing(true)
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("done버튼 눌림")
+        textField.resignFirstResponder()
+        return true
+    }
+
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        print("enter버튼 눌림")
+        self.view.frame.origin.y = self.restoreFrameValue
+        return true
+    }
+    
+}

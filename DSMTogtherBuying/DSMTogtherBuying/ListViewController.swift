@@ -43,7 +43,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "buyingListTableViewCell", for: indexPath) as! BuyingListTableViewCell
         cell.buyingListTitle.text = "1"
-        cell.buyerImage.image = UIImage()
+        cell.buyerImage.image = UIImage.remove
         cell.buyerNickName.text = "주멘"
         return cell
     }
