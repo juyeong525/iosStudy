@@ -121,7 +121,6 @@ extension MyProfileViewController : UIImagePickerControllerDelegate, UINavigatio
             selectionImage.jpegData(compressionQuality: 0.5)
             myImageButton.setImage(selectionImage, for: .normal)
         }
-
         dismiss(animated: true,completion: nil)
     }
 }

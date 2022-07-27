@@ -1,9 +1,11 @@
 import UIKit
 import SnapKit
 import Then
+import AVFoundation
 
 class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegate{
     var count = 0
+    var upDown = false
     var restoreFrameValue: CGFloat = 0.0
     let imagePickController = UIImagePickerController()
     private var productImageView = UIButton().then {
@@ -118,6 +120,8 @@ class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegat
         }else{
             alert(title: "게시", message: "이 상품을 게시하시겠습니까?")
         }
+        self.view.frame.origin.y = self.restoreFrameValue
+        
         
     }
     private func alert(title:String,message:String){
@@ -131,19 +135,8 @@ class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegat
     private func setUp(){
         [productTitleTextField,productCommentLabel,productHomePageLinkTextField,productAllCountTextField,productMyCountTextField,BuyerAccountTextField,storeButton,productImageView].forEach {view.addSubview($0)}
         productImageView.snp.makeConstraints {
-            if UIScreen.main.bounds.size.height > 700 && UIScreen.main.bounds.size.height<900 {
-                
-                $0.width.equalTo(250)
-                $0.height.equalTo(180)
-            }else if UIScreen.main.bounds.size.height > 900{
-                $0.width.equalTo(300)
-                $0.height.equalTo(300)
-            }
-            else{
-                
-                $0.width.equalTo(150)
-                $0.height.equalTo(100)
-            }
+            $0.top.greaterThanOrEqualTo(view.snp.topMargin).inset(20)
+            $0.width.lessThanOrEqualToSuperview().inset(100)
             $0.centerX.equalToSuperview()
         }
         productCommentLabel.snp.makeConstraints {
@@ -189,6 +182,7 @@ class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegat
     
 
 }
+// padding 주기
 extension UITextField {
     
     func addLeftPadding() {
@@ -213,11 +207,11 @@ extension AddViewConroller : UIImagePickerControllerDelegate, UINavigationContro
 extension AddViewConroller: UITextFieldDelegate {
     
     @objc func keyboardWillAppear(noti: NSNotification) {
-        if self.view.frame.origin.y == restoreFrameValue {
+        if upDown == false {
             
-            let keyboardRectangle = productImageView.frame.origin.y+70
+            let keyboardRectangle = productTitleTextField.frame.origin.y
             self.view.frame.origin.y = -keyboardRectangle
-        
+            upDown = true
             print("올라감")
         }
     }
@@ -225,8 +219,9 @@ extension AddViewConroller: UITextFieldDelegate {
     @objc func keyboardWillDisappear(noti: NSNotification) {
         if self.view.frame.origin.y != restoreFrameValue {
         
-            let keyboardRectangle = productImageView.frame.origin.y+70
+            let keyboardRectangle = productTitleTextField.frame.origin.y
             self.view.frame.origin.y = +keyboardRectangle
+            upDown = false
             print("내려감")
         }
     }
@@ -236,19 +231,18 @@ extension AddViewConroller: UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.frame.origin.y = restoreFrameValue
         print("화면 터치")
+        upDown = false
         self.view.endEditing(true)
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print("done버튼 눌림")
+        upDown = false
         textField.resignFirstResponder()
-        return true
-    }
-
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        print("enter버튼 눌림")
         self.view.frame.origin.y = self.restoreFrameValue
         return true
     }
+
+  
     
 }
