@@ -9,5 +9,6 @@ target 'DSMTogtherBuying' do
 pod 'Alamofire'
 pod 'SnapKit'
 pod 'Then'
-
+pod 'Firebase/Core'
+pod 'Firebase/Database'
 end

@@ -121,8 +121,6 @@ class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegat
             alert(title: "게시", message: "이 상품을 게시하시겠습니까?")
         }
         self.view.frame.origin.y = self.restoreFrameValue
-        
-        
     }
     private func alert(title:String,message:String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
@@ -242,7 +240,5 @@ extension AddViewConroller: UITextFieldDelegate {
         self.view.frame.origin.y = self.restoreFrameValue
         return true
     }
-
-  
     
 }
