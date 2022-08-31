@@ -10,19 +10,12 @@ import UIKit
 import SnapKit
 import Then
 import Alamofire
-import Photos
-class MyProfileViewController: UIViewController, UIPopoverPresentationControllerDelegate{
-    let imagePickController = UIImagePickerController()
+
+class MyProfileViewController: UIViewController{
+    
     var myNameLabel = UILabel().then {
         $0.textAlignment = .center
         $0.text = "박주영"
-    }
-    var myImageButton = UIButton().then {
-        $0.setImage(UIImage.add, for: .normal)
-        $0.layer.cornerRadius = 50
-        $0.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 150), forImageIn: .normal)
-        $0.clipsToBounds = true
-        $0.contentMode = .scaleToFill
     }
     var infoMyListLabel = UILabel().then {
         $0.text = "내목록"
@@ -30,13 +23,6 @@ class MyProfileViewController: UIViewController, UIPopoverPresentationController
         $0.font = UIFont.systemFont(ofSize: 20)
     }
     var myListTableView = UITableView()
-    
-    lazy var loginButton = UIButton(type: .system).then {
-        $0.backgroundColor = .black
-        $0.setTitle("로그인", for: .normal)
-        $0.setTitleColor(.white, for: .normal)
-        $0.layer.cornerRadius = 15
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,12 +32,12 @@ class MyProfileViewController: UIViewController, UIPopoverPresentationController
         myListTableView.rowHeight = 50
         targets()
         self.navigationController?.navigationBar.topItem?.title = "MY"
-        imagePickController.delegate = self
         
     }
     
     override func viewWillLayoutSubviews() {
-        setUp()
+        addSubviews()
+        makeSubviewConstraints()
     }
     
     @objc func onLoginButton(_ sender: UIButton){
@@ -60,25 +46,18 @@ class MyProfileViewController: UIViewController, UIPopoverPresentationController
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true)
     }
-    @objc func touchImage(){
-        imagePickController.sourceType = .photoLibrary
-        imagePickController.delegate = self
-        present(imagePickController, animated: true, completion: nil)
-    }
+    
     func targets() {
-        loginButton.addTarget(self, action: #selector(onLoginButton), for: .touchUpInside)
-        myImageButton.addTarget(self, action: #selector(touchImage), for: .touchUpInside)
     }
-    func setUp(){
-        [myNameLabel, myImageButton, infoMyListLabel, myListTableView, loginButton]
+    
+    func addSubviews() {
+        [myNameLabel, infoMyListLabel, myListTableView]
             .forEach { view.addSubview($0) }
-        myImageButton.snp.makeConstraints {
-            $0.top.equalTo(view.snp.topMargin)
-            $0.centerX.equalToSuperview()
-            $0.height.width.equalTo(100)
-        }
+    }
+    
+    func makeSubviewConstraints() {
         myNameLabel.snp.makeConstraints {
-            $0.top.equalTo(myImageButton.snp.bottom).offset(15)
+            $0.top.equalToSuperview().inset(50)
             $0.centerX.equalToSuperview()
         }
         infoMyListLabel.snp.makeConstraints {
@@ -88,12 +67,6 @@ class MyProfileViewController: UIViewController, UIPopoverPresentationController
         myListTableView.snp.makeConstraints {
             $0.top.equalTo(infoMyListLabel.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
-        }
-        loginButton.snp.makeConstraints {
-            $0.top.equalTo(view.snp.topMargin)
-            $0.trailing.equalToSuperview().inset(16)
-            $0.width.equalTo(70)
-            $0.height.equalTo(40)
         }
     }
     
@@ -114,13 +87,4 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource {
 
    }
 }
-extension MyProfileViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let selectionImage = info[.originalImage] as? UIImage{
-            print(selectionImage)
-            selectionImage.jpegData(compressionQuality: 0.5)
-            myImageButton.setImage(selectionImage, for: .normal)
-        }
-        dismiss(animated: true,completion: nil)
-    }
-}
+

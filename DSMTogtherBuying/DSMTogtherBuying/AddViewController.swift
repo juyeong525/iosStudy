@@ -8,11 +8,14 @@ class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegat
     var upDown = false
     var restoreFrameValue: CGFloat = 0.0
     let imagePickController = UIImagePickerController()
+    let uiScrollView = UIScrollView()
+    let contentsView = UIView()
     private var productImageView = UIButton().then {
-        $0.setImage(UIImage(systemName: "photo"), for: .normal)
         $0.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 100), forImageIn: .normal)
         $0.clipsToBounds = true
-        $0.contentMode = .scaleToFill
+        $0.contentMode = .scaleAspectFill
+        $0.backgroundColor = .gray
+        $0.setTitle("사진을 불러오세요", for: .normal)
 
     }
     private var productCommentLabel = UILabel().then {
@@ -85,7 +88,8 @@ class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegat
       
     }
     override func viewDidLayoutSubviews() {
-        setUp()
+        addSubviews()
+        makeSubviewConstraints(frame: view.frame)
         
     }
 
@@ -130,11 +134,28 @@ class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegat
         alert.addAction(okAction)
         present(alert, animated: true, completion:nil)
     }
-    private func setUp(){
-        [productTitleTextField,productCommentLabel,productHomePageLinkTextField,productAllCountTextField,productMyCountTextField,BuyerAccountTextField,storeButton,productImageView].forEach {view.addSubview($0)}
+    private func addSubviews() {
+        self.view.addSubview(uiScrollView)
+        uiScrollView.addSubview(contentsView)
+        [productTitleTextField,productCommentLabel,productHomePageLinkTextField,productAllCountTextField,productMyCountTextField,BuyerAccountTextField,storeButton,productImageView].forEach {contentsView.addSubview($0)}
+    }
+    private func makeSubviewConstraints(frame : CGRect) {
+        uiScrollView.snp.makeConstraints {
+            $0.left.right.equalToSuperview()
+            $0.top.equalTo(view.snp.topMargin)
+            $0.bottom.equalTo(view.snp.bottomMargin)
+        }
+        contentsView.snp.makeConstraints {
+            $0.left.right.equalToSuperview()
+            $0.top.equalTo(uiScrollView.snp.topMargin)
+            $0.bottom.equalTo(uiScrollView.snp.bottomMargin)
+            $0.width.equalTo(frame.width)
+            $0.height.equalTo(frame.height)
+        }
         productImageView.snp.makeConstraints {
-            $0.top.greaterThanOrEqualTo(view.snp.topMargin).inset(20)
-            $0.width.lessThanOrEqualToSuperview().inset(100)
+            $0.top.equalTo(uiScrollView.snp.topMargin)
+            $0.right.left.equalToSuperview().inset(20)
+            $0.height.equalTo(250)
             $0.centerX.equalToSuperview()
         }
         productCommentLabel.snp.makeConstraints {
@@ -168,9 +189,7 @@ class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegat
             $0.height.equalTo(50)
         }
         storeButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.snp.bottomMargin).inset(15)
-            $0.left.equalToSuperview().inset(30)
-            $0.right.equalToSuperview().inset(30)
+            $0.left.right.equalToSuperview().inset(30)
             $0.top.equalTo(BuyerAccountTextField.snp.bottom).offset(20)
             $0.height.equalTo(50)
         }
@@ -207,7 +226,7 @@ extension AddViewConroller: UITextFieldDelegate {
     @objc func keyboardWillAppear(noti: NSNotification) {
         if upDown == false {
             
-            let keyboardRectangle = productTitleTextField.frame.origin.y
+            let keyboardRectangle = productCommentLabel.frame.origin.y
             self.view.frame.origin.y = -keyboardRectangle
             upDown = true
             print("올라감")
@@ -217,7 +236,7 @@ extension AddViewConroller: UITextFieldDelegate {
     @objc func keyboardWillDisappear(noti: NSNotification) {
         if self.view.frame.origin.y != restoreFrameValue {
         
-            let keyboardRectangle = productTitleTextField.frame.origin.y
+            let keyboardRectangle = productCommentLabel.frame.origin.y
             self.view.frame.origin.y = +keyboardRectangle
             upDown = false
             print("내려감")
@@ -227,7 +246,7 @@ extension AddViewConroller: UITextFieldDelegate {
     //self.view.frame.origin.y = restoreFrameValue
    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.frame.origin.y = restoreFrameValue
+        self.view.frame.origin.y = self.restoreFrameValue
         print("화면 터치")
         upDown = false
         self.view.endEditing(true)
