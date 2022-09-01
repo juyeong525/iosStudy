@@ -11,4 +11,5 @@ pod 'SnapKit'
 pod 'Then'
 pod 'Firebase/Core'
 pod 'Firebase/Database'
+pod 'Moya'
 end

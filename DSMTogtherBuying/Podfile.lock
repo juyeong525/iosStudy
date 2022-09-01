@@ -90,6 +90,10 @@ PODS:
   - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
   - leveldb-library (1.22.1)
+  - Moya (15.0.0):
+    - Moya/Core (= 15.0.0)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -103,6 +107,7 @@ DEPENDENCIES:
   - Alamofire
   - Firebase/Core
   - Firebase/Database
+  - Moya
   - SnapKit
   - Then
 
@@ -120,6 +125,7 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleUtilities
     - leveldb-library
+    - Moya
     - nanopb
     - PromisesObjC
     - SnapKit
@@ -138,11 +144,12 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
-PODFILE CHECKSUM: 6cbb6246c146e904db7dc05eed1e25dea2178e08
+PODFILE CHECKSUM: 58fd79907a9515a3027ffb4bea65dc6bee70dfb2
 
 COCOAPODS: 1.11.3

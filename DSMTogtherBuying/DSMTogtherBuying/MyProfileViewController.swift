@@ -12,7 +12,9 @@ import Then
 import Alamofire
 
 class MyProfileViewController: UIViewController{
-    
+    private var profileImageView = UIImageView().then {
+        $0.image = UIImage(systemName: "person")
+    }
     var myNameLabel = UILabel().then {
         $0.textAlignment = .center
         $0.text = "박주영"
@@ -51,13 +53,18 @@ class MyProfileViewController: UIViewController{
     }
     
     func addSubviews() {
-        [myNameLabel, infoMyListLabel, myListTableView]
+        [profileImageView,myNameLabel, infoMyListLabel, myListTableView]
             .forEach { view.addSubview($0) }
     }
     
     func makeSubviewConstraints() {
-        myNameLabel.snp.makeConstraints {
+        profileImageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(50)
+            $0.width.height.equalTo(100)
+            $0.centerX.equalToSuperview()
+        }
+        myNameLabel.snp.makeConstraints {
+            $0.top.equalTo(profileImageView.snp.bottom)
             $0.centerX.equalToSuperview()
         }
         infoMyListLabel.snp.makeConstraints {
