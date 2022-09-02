@@ -8,15 +8,12 @@ class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegat
     var upDown = false
     var restoreFrameValue: CGFloat = 0.0
     let imagePickController = UIImagePickerController()
-    let uiScrollView = UIScrollView()
-    let contentsView = UIView()
     private var productImageView = UIButton().then {
         $0.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration.init(pointSize: 100), forImageIn: .normal)
         $0.clipsToBounds = true
         $0.contentMode = .scaleAspectFill
         $0.backgroundColor = .gray
         $0.setTitle("사진을 불러오세요", for: .normal)
-
     }
     private var productCommentLabel = UILabel().then {
         $0.layer.cornerRadius = 20
@@ -84,6 +81,7 @@ class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegat
             $0.returnKeyType = .done
             $0.delegate = self
         }
+        
         self.navigationController?.navigationBar.topItem?.title = "추가"
       
     }
@@ -135,63 +133,50 @@ class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegat
         present(alert, animated: true, completion:nil)
     }
     private func addSubviews() {
-        self.view.addSubview(uiScrollView)
-        uiScrollView.addSubview(contentsView)
-        [productTitleTextField,productCommentLabel,productHomePageLinkTextField,productAllCountTextField,productMyCountTextField,BuyerAccountTextField,storeButton,productImageView].forEach {contentsView.addSubview($0)}
+        [productTitleTextField,productCommentLabel,productHomePageLinkTextField,productAllCountTextField,productMyCountTextField,BuyerAccountTextField,storeButton,productImageView].forEach {view.addSubview($0)}
     }
     private func makeSubviewConstraints(frame : CGRect) {
-        uiScrollView.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalTo(view.snp.topMargin)
-            $0.bottom.equalTo(view.snp.bottomMargin)
-        }
-        contentsView.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.top.equalTo(uiScrollView.snp.topMargin)
-            $0.bottom.equalTo(uiScrollView.snp.bottomMargin)
-            $0.width.equalTo(frame.width)
-            $0.height.equalTo(frame.height)
-        }
         productImageView.snp.makeConstraints {
-            $0.top.equalTo(uiScrollView.snp.topMargin)
-            $0.right.left.equalToSuperview().inset(20)
-            $0.height.equalTo(250)
+            $0.top.equalTo(view.snp.topMargin)
+            $0.width.lessThanOrEqualTo(100)
+            $0.height.greaterThanOrEqualTo(100)
             $0.centerX.equalToSuperview()
         }
         productCommentLabel.snp.makeConstraints {
             $0.top.equalTo(productImageView.snp.bottom).offset(10)
             $0.left.right.equalToSuperview().inset(25)
-            $0.height.equalTo(40)
+            $0.height.greaterThanOrEqualTo(40)
         }
         productTitleTextField.snp.makeConstraints {
             $0.top.equalTo(productCommentLabel.snp.bottom).offset(20)
             $0.left.right.equalToSuperview().inset(15)
-            $0.height.equalTo(50)
+            $0.height.greaterThanOrEqualTo(50)
         }
         productHomePageLinkTextField.snp.makeConstraints {
             $0.top.equalTo(productTitleTextField.snp.bottom).offset(10)
             $0.left.right.equalToSuperview().inset(15)
-            $0.height.equalTo(50)
+            $0.height.greaterThanOrEqualTo(50)
         }
         productAllCountTextField.snp.makeConstraints {
             $0.top.equalTo(productHomePageLinkTextField.snp.bottom).offset(10)
             $0.left.right.equalToSuperview().inset(15)
-            $0.height.equalTo(50)
+            $0.height.greaterThanOrEqualTo(50)
         }
         productMyCountTextField.snp.makeConstraints {
             $0.top.equalTo(productAllCountTextField.snp.bottom).offset(10)
             $0.left.right.equalToSuperview().inset(15)
-            $0.height.equalTo(50)
+            $0.height.greaterThanOrEqualTo(50)
         }
         BuyerAccountTextField.snp.makeConstraints {
             $0.top.equalTo(productMyCountTextField.snp.bottom).offset(10)
             $0.left.right.equalToSuperview().inset(15)
-            $0.height.equalTo(50)
+            $0.height.greaterThanOrEqualTo(50)
         }
         storeButton.snp.makeConstraints {
             $0.left.right.equalToSuperview().inset(30)
             $0.top.equalTo(BuyerAccountTextField.snp.bottom).offset(20)
-            $0.height.equalTo(50)
+            $0.height.greaterThanOrEqualTo(50)
+            $0.bottom.equalTo(view.snp.bottomMargin)
         }
        
 
@@ -228,6 +213,8 @@ extension AddViewConroller: UITextFieldDelegate {
             
             let keyboardRectangle = productCommentLabel.frame.origin.y
             self.view.frame.origin.y = -keyboardRectangle
+            productCommentLabel.isHidden = true
+            productImageView.isHidden = true
             upDown = true
             print("올라감")
         }
@@ -235,18 +222,15 @@ extension AddViewConroller: UITextFieldDelegate {
     
     @objc func keyboardWillDisappear(noti: NSNotification) {
         if self.view.frame.origin.y != restoreFrameValue {
-        
-            let keyboardRectangle = productCommentLabel.frame.origin.y
-            self.view.frame.origin.y = +keyboardRectangle
+            self.view.frame.origin.y = restoreFrameValue
+            productCommentLabel.isHidden = false
+            productImageView.isHidden = false
             upDown = false
             print("내려감")
         }
     }
-    
-    //self.view.frame.origin.y = restoreFrameValue
    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.frame.origin.y = self.restoreFrameValue
         print("화면 터치")
         upDown = false
         self.view.endEditing(true)
@@ -256,7 +240,6 @@ extension AddViewConroller: UITextFieldDelegate {
         print("done버튼 눌림")
         upDown = false
         textField.resignFirstResponder()
-        self.view.frame.origin.y = self.restoreFrameValue
         return true
     }
     
