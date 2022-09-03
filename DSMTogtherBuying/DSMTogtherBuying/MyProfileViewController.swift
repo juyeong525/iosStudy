@@ -32,6 +32,7 @@ class MyProfileViewController: UIViewController{
         myListTableView.dataSource = self
         myListTableView.register(MYListTableViewCell.self, forCellReuseIdentifier: "MyListTableViewCell")
         myListTableView.rowHeight = 50
+        
         targets()
         self.navigationController?.navigationBar.topItem?.title = "MY"
         
@@ -59,7 +60,7 @@ class MyProfileViewController: UIViewController{
     
     func makeSubviewConstraints() {
         profileImageView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(50)
+            $0.top.equalTo(view.snp.topMargin)
             $0.width.height.equalTo(100)
             $0.centerX.equalToSuperview()
         }

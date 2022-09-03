@@ -16,7 +16,7 @@ class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegat
         $0.setTitle("사진을 불러오세요", for: .normal)
     }
     private var productCommentLabel = UILabel().then {
-        $0.layer.cornerRadius = 20
+        $0.layer.cornerRadius = 15
         $0.textAlignment = .center
         $0.textColor = .gray
         $0.font = .systemFont(ofSize: 15)
@@ -138,14 +138,14 @@ class AddViewConroller: UIViewController ,UIPopoverPresentationControllerDelegat
     private func makeSubviewConstraints(frame : CGRect) {
         productImageView.snp.makeConstraints {
             $0.top.equalTo(view.snp.topMargin)
-            $0.width.lessThanOrEqualTo(100)
+            $0.width.lessThanOrEqualTo(frame.width/2)
             $0.height.greaterThanOrEqualTo(100)
             $0.centerX.equalToSuperview()
         }
         productCommentLabel.snp.makeConstraints {
             $0.top.equalTo(productImageView.snp.bottom).offset(10)
             $0.left.right.equalToSuperview().inset(25)
-            $0.height.greaterThanOrEqualTo(40)
+            $0.height.greaterThanOrEqualTo(30)
         }
         productTitleTextField.snp.makeConstraints {
             $0.top.equalTo(productCommentLabel.snp.bottom).offset(20)
