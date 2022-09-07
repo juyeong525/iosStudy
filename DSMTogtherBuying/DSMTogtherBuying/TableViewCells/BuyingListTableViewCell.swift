@@ -13,16 +13,15 @@ class BuyingListTableViewCell: UITableViewCell,UITableViewDelegate {
     var buyingListTitle = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .left
-        $0.font = UIFont.boldSystemFont(ofSize: 25)
+        $0.font = UIFont.boldSystemFont(ofSize: 20)
     }
     var buyerNickName = UILabel().then {
         $0.textAlignment = .left
         $0.font = UIFont.boldSystemFont(ofSize: 15)
         $0.textColor = .placeholderText
     }
-    var buyerImage = UIImageView().then {
-        $0.layer.cornerRadius = 30
-        $0.contentMode = .scaleToFill
+    var backView = UIView().then {
+        $0.backgroundColor = .white
     }
 
     override func awakeFromNib() {
@@ -37,21 +36,22 @@ class BuyingListTableViewCell: UITableViewCell,UITableViewDelegate {
         super.setSelected(selected, animated: animated)
     }
     func setUp(){
-        self.selectionStyle = .blue
-        
-        [buyingListTitle,buyerNickName,buyerImage].forEach{self.addSubview($0)}
-        buyerImage.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(30)
-            $0.height.equalTo(200)
-            $0.top.equalTo(buyerNickName.snp.bottom)
+        self.backgroundColor = UIColor(named: "Color")
+        self.addSubview(backView)
+        backView.layer.cornerRadius = 20
+        self.selectionStyle = .none
+        backView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview().inset(5)
+            $0.left.right.equalToSuperview().inset(20)
         }
+        [buyingListTitle,buyerNickName].forEach{backView.addSubview($0)}
         buyingListTitle.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.left.right.equalToSuperview().inset(30)
+            $0.top.equalToSuperview().inset(10)
+            $0.left.equalToSuperview().inset(20)
         }
         buyerNickName.snp.makeConstraints {
             $0.top.equalTo(buyingListTitle.snp.bottom)
-            $0.left.right.equalToSuperview().inset(30)
+            $0.left.right.equalToSuperview().inset(20)
         }
     }
 }
