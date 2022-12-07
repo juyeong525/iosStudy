@@ -12,7 +12,7 @@ class ScrollView: UIView {
         let imageView = UIImageView()
         
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage.init(named: "img_spongebob")
+        imageView.image = UIImage.init(systemName: "Person")
         return imageView
     }()
     
@@ -20,7 +20,7 @@ class ScrollView: UIView {
         let imageView = UIImageView()
         
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage.init(named: "img_spongebob")
+        imageView.image = UIImage.init(systemName: "Person")
         return imageView
     }()
     
@@ -28,7 +28,7 @@ class ScrollView: UIView {
         let imageView = UIImageView()
         
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage.init(named: "img_spongebob")
+        imageView.image = UIImage.init(systemName: "Person")
         return imageView
     }()
     
@@ -36,7 +36,7 @@ class ScrollView: UIView {
         let imageView = UIImageView()
         
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage.init(named: "img_spongebob")
+        imageView.image = UIImage.init(systemName: "Person")
         return imageView
     }()
     
@@ -44,7 +44,6 @@ class ScrollView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
     override init(frame: CGRect) {
         super .init(frame: frame)
         
@@ -55,46 +54,47 @@ class ScrollView: UIView {
         contentsView.addSubview(imageView3)
         contentsView.addSubview(imageView4)
         scrollView.addSubview(contentsView)
+        
         addSubview(scrollView)
         
         
         scrollView.snp.makeConstraints { (make) in
-            make.edges.equalTo(0)
+            make.edges.equalToSuperview()
         }
         
         imageView1.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview()
             make.width.equalToSuperview()
-            make.height.equalTo(imageView1.image!.size.height * frame.width / imageView1.image!.size.width)
+            make.height.equalTo(200)
         }
         
         imageView2.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(imageView1.snp.bottom).offset(10)
             make.width.equalToSuperview()
-            make.height.equalTo(imageView1.image!.size.height * frame.width / imageView1.image!.size.width)
+            make.height.equalTo(200)
         }
         
         imageView3.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(imageView2.snp.bottom).offset(10)
             make.width.equalToSuperview()
-            make.height.equalTo(imageView1.image!.size.height * frame.width / imageView1.image!.size.width)
+            make.height.equalTo(200)
         }
         
         imageView4.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.top.equalTo(imageView3.snp.bottom).offset(10)
             make.width.equalToSuperview()
-            make.height.equalTo(imageView1.image!.size.height * frame.width / imageView1.image!.size.width)
+            make.height.equalTo(200)
         }
         
         ///////////// 3번째
         contentsView.snp.makeConstraints { (make) in
-            make.edges.equalTo(0)
+            make.edges.equalToSuperview()
             make.width.equalTo(frame.width)
-            make.height.equalTo(frame.height + 100)
+            make.height.equalTo(frame.height + 500)
         }
     }
 }

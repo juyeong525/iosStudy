@@ -43,7 +43,4 @@ class HTTPClient : HTTPClientProvider {
                           headers: header,
                           interceptor: nil)
     }
-    
-    
-    
 }
