@@ -43,7 +43,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="회원가입"/>
                                 <connections>
-                                    <segue destination="tNl-pU-gDo" kind="push" id="xBQ-al-Om2"/>
+                                    <action selector="signupButtonDidTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zNL-D5-mIh"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -87,7 +87,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X5T-rH-PAS">
-                                <rect key="frame" x="171" y="684" width="73" height="31"/>
+                                <rect key="frame" x="171" y="684" width="88" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="회원가입"/>

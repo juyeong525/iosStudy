@@ -37,18 +37,22 @@ class SignupViewController: UIViewController {
     }
 
     @IBAction func emailCheckCodeButton(_ sender: UIButton) {
-        httpClient.post(
-            url: AuthAPI.emailCheck.path()+"?email="+emailTextField.text!,
-            params: nil,
-            header: Header.tokenIsEmpty.header()
-        ).responseData(completionHandler: { res in
-            switch res.response?.statusCode {
-            case 200:
-                sender.titleLabel?.text = "인증번호 확인"
-            default:
-                print(res.response?.statusCode ?? 0)
-            }
-        })
+        if emailCheckButtons.titleLabel?.text == "인증번호 받기"{
+            httpClient.post(
+                url: AuthAPI.emailCheck.path()+"?email="+emailTextField.text!,
+                params: nil,
+                header: Header.tokenIsEmpty.header()
+            ).responseData(completionHandler: { res in
+                switch res.response?.statusCode {
+                case 200:
+                    sender.titleLabel?.text = "인증번호 확인"
+                default:
+                    print(res.response?.statusCode ?? 0)
+                }
+            })
+        }else{
+            return
+        }
     }
     @IBAction func signupButtonDidTap(_ sender: UIButton) {
         signup(email: emailTextField.text ?? "",

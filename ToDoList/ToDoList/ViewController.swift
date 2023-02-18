@@ -65,6 +65,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
+    
     @IBAction func editButton(_ sender: UIBarButtonItem) {
         if tableView.isEditing {
             sender.title = "Edit"

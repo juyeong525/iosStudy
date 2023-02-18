@@ -24,7 +24,6 @@ class SecondViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         searchFood()
-        
     }
     
     func searchFood() {

@@ -7,4 +7,5 @@ target 'serverTest' do
 
   # Pods for serverTest
   pod 'Alamofire'
+pod 'Then' 
 end

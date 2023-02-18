@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.navigationController?.title = "Fsdf"
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.red]
     }
 
     @IBAction func moveModalView(_ button: UIButton) {

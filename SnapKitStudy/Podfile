@@ -7,4 +7,5 @@ target 'SnapKitStudy' do
 
   # Pods for SnapKitStudy
 pod 'SnapKit'
+pod 'Then'
 end
